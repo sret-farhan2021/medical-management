@@ -1,0 +1,557 @@
+<h2 mat-dialog-title>Details</h2>
+<div mat-dialog-content>
+  <h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'personal' }" (click)="toggleTable('personal')">
+    Personal Details
+    <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'personal' }"></span>
+  </h3>
+  <table *ngIf="expandedTable === 'personal'">
+
+  <tr>
+    <td>Attending doctor name:</td>
+      <td>{{ data.dname }}</td>
+      <td>Attending doctor ID:</td>
+      <td>{{ data.did }}</td>
+  </tr>
+    <tr>
+      <td>Patient name:</td>
+      <td>{{ data.name }}</td>
+      <td>Patient ID:</td>
+      <td>{{ data.pid }}</td>
+    </tr>
+    <tr>
+      <td>Gender:</td>
+      <td>{{ data.gender }}</td>
+      <td>Age:</td>
+      <td>{{ data.age }}</td>
+    </tr>
+    <tr>
+      <td>Email:</td>
+      <td>{{ data.email }}</td>
+      <td>Phone number:</td>
+      <td>{{ data.phone }}</td>
+    </tr>
+    <tr>
+      <td>Address:</td>
+      <td>{{ data.address }}</td>
+      <td>Date of Birth:</td>
+      <td>{{ data.dob | date:'dd-MM-yyyy' }}</td>
+    </tr>
+  </table>
+  <h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'symptoms' }" (click)="toggleTable('symptoms')">
+    Symptoms
+    <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'symptoms' }"></span>
+  </h3>
+  <table *ngIf="expandedTable === 'symptoms'">
+    <tr>
+      <td>Cough:</td>
+      <td>{{ data.cough }}</td>
+      <td>Cough Remarks:</td>
+      <td>{{ data.coughremarks }} </td>
+      <tr>     
+      <td>Cough Frequency:</td>
+      <td>{{ data.coughno }} </td>
+      </tr>
+    <tr>
+      <td>Shortness of Breath:</td>
+      <td>{{ data.breath }} ATS</td>
+      <td>Shortness of Breath Remarks:</td>
+      <td>{{ data.breathremarks }}</td>
+    </tr>
+    <tr>
+      <td>Sputum:</td>
+      <td>{{ data.sputum }}</td>
+      <td>Sputum Remarks:</td>
+      <td>{{ data.sputumremarks }}</td>
+    </tr>
+    <tr>
+      <td>Hemoptysis:</td>
+      <td>{{ data.hemoptysis }}</td>
+      <td>Hemoptysis Remarks:</td>
+      <td>{{ data.hemoremarks }}</td>
+    </tr>
+    <tr>
+      <td>Chest Pain:</td>
+      <td>{{ data.chestpain }}</td>
+      <td>Chest Pain Remarks:</td>
+      <td>{{ data.chestremarks }}</td>
+    </tr>
+    <tr>
+      <td>Fever:</td>
+      <td>{{ data.fever }}</td>
+      <td>Fever Remarks:</td>
+      <td>{{ data.feverremarks }}</td>
+    </tr>
+    <tr>
+      <td>Wheeze:</td>
+      <td>{{ data.wheeze }}</td>
+      <td>Wheeze Remarks:</td>
+      <td>{{ data.wheezeremarks }}</td>
+    </tr>
+    <tr>
+      <td>Allergies:</td>
+      <td>{{ data.allergy }}</td>
+      <td>Allergy Remarks:</td>
+      <td>{{ data.allergyremarks }}</td>
+    </tr>
+  </table>
+  <h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'examination' }" (click)="toggleTable('examination')">
+    General Examination
+    <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'examination' }"></span>
+  </h3>
+  <table *ngIf="expandedTable === 'examination'">    
+    <tr>
+      <td>Weight:</td>
+      <td>{{ data.weight }} KG</td>
+      <td>Height:</td>
+      <td>{{ data.height }} CM</td>
+    </tr>
+    <tr>
+      <td>Body Mass Index (BMI):</td>
+      <td>{{ calculateBMI(data.weight, data.height) }}</td>
+      <td>Temperature:</td>
+      <td>{{ data.temp }} °F</td>
+    </tr>
+    <tr>
+      <td>Pulse Rate (PR):</td>
+      <td>{{ data.pr }}</td>
+      <td>SPO2:</td>
+      <td>{{ data.spo }} %</td>
+    </tr>
+    <tr>
+      <td>Blood Pressure (BP):</td>
+      <td>{{ data.bp }} mm/HG</td>
+    </tr>
+    <tr>
+      <td>Anemia:</td>
+      <td>{{ data.anemia }}</td>
+      <td>Anemia Remarks:</td>
+      <td>{{ data.anemiaremarks }}</td>
+    </tr>
+    <tr>
+      <td>Cyanosis:</td>
+      <td>{{ data.cyan }}</td>
+      <td>Cyanosis Remarks:</td>
+      <td>{{ data.cyanremarks }}</td>
+    </tr>
+    <tr>
+      <td>Clubbing:</td>
+      <td>{{ data.club }}</td>
+      <td>Clubbing Remarks:</td>
+      <td>{{ data.clubremarks }}</td>
+    </tr>
+    <tr>
+      <td>Lymphadenopathy:</td>
+      <td>{{ data.lymph }}</td>
+      <td>Lymphadenopathy Remarks:</td>
+      <td>{{ data.lymphremarks }}</td>
+    </tr>
+    <tr>
+      <td>Edema:</td>
+      <td>{{ data.edema }}</td>
+      <td>Edema Remarks:</td>
+      <td>{{ data.edemaremarks }}</td>
+    </tr>
+    <tr>
+      <td>Icterus:</td>
+      <td>{{ data.icterus }}</td>
+      <td>Icterus Remarks:</td>
+      <td>{{ data.ictremarks }}</td>
+    </tr>
+    <tr>
+      <td>Jugular Venous Pressure (JVP):</td>
+      <td>{{ data.jvp }}</td>
+      <td>Jugular Venous Pressure Remarks:</td>
+      <td>{{ data.jvpremarks }}</td>
+    </tr>
+    </table>
+    <h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'past' }" (click)="toggleTable('past')">
+      Past history
+      <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'past' }"></span>
+    </h3>
+    <table *ngIf="expandedTable === 'past'">
+    <tr>  
+      <td>Diabetes Mellitus (DM):</td>
+      <td>{{ data.dm }}</td>
+      <td>Type 2 Diabetes Mellitus</td>
+      <td>{{ data.t2dm}}</td>
+      </tr>
+      <tr>  
+        <td>Secondary Hypertension (SHT):</td>
+        <td>{{ data.sht }}</td>
+        <td> Structural Heart Disease (SHD):</td>
+        <td>{{ data.shd }}</td>
+        </tr>
+        <tr>  
+          <td>Coronary Artery Disease (CAD)</td>
+          <td>{{ data.cad}}</td>
+          <td>Cerebrovascular Accident</td>
+          <td>{{ data.cva}}</td>
+          </tr>
+          <tr>  
+            <td>Seizure Disorder</td>
+            <td>{{ data.seizure}}</td>
+            <td>Any previous surgery:</td>
+            <td>{{ data.surgery}}</td>
+            </tr>
+      <tr>
+      <td>Smoking:</td>
+      <td>{{ data.smoke }}</td>
+      <td>Smoking Index:</td>
+      <td>{{ calculateindex(data.numberofcig, data.numbersmoke)}}</td>
+      </tr>
+      <tr>
+      <td>Alcohol Consumption:</td>
+      <td>{{ data.drink }}</td>
+      <td>Alchohol frequency<td>
+      <td>{{data.numberofdrink}}</td>
+      </tr>
+      <tr> 
+      <td>H/O ATT:</td>
+      <td>{{ data.att }}</td>
+      <td>Medicines consumed</td>
+      <td>{{data.namemedicines}}</td>
+    </tr>
+    <tr>
+      <td>Number of Years Consumed</td>
+     <td>{{data.numberofyears}}</td>
+    </tr>
+    <tr>
+      <td>Sputum AFB Test:</td>
+      <td>{{data.safb}}</td>
+      <td>AFB Cells:</td>
+      <td>{{data.afb}}</td>
+    </tr>
+    <tr>
+      <td>LPA Test:</td>
+      <td>{{data.lpa}}</td>
+    </tr>
+    </table>
+    <h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'system' }" (click)="toggleTable('system')">
+      System Examination
+      <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'system' }"></span>
+    </h3>
+    <table *ngIf="expandedTable === 'system'">
+    <tr>
+      <td>Cardiovascular System (CVS):</td>
+      <td>{{ data.cvs }}</td>
+      <td>CVS Remarks:</td>
+      <td>{{ data.cvsremarks }}</td>
+    </tr>
+    <tr>
+      <td>Peak Expiratory Flow Rate (PEFR):</td>
+      <td>{{ data.pefr }}</td>
+      <td>PEFR Remarks:</td>
+      <td>{{ data.pefrremarks }}</td>
+    </tr>
+    <tr>
+      <td>Respiratory Sounds - Left:</td>
+      <td>{{ data.rsleft }}</td>
+      <td>Respiratory Sounds - Left Remarks:</td>
+      <td>{{ data.rsleftremarks }}</td>
+    </tr>
+    <tr>
+      <td>Respiratory Sounds - Right:</td>
+      <td>{{ data.rsright }}</td>
+      <td>Respiratory Sounds - Right Remarks:</td>
+      <td>{{ data.rsrightremarks }}</td>
+    </tr>
+    <tr>
+      <td>Pleural Aspiration (PA):</td>
+      <td>{{ data.pa }}</td>
+      <td>PA Remarks:</td>
+      <td>{{ data.paremarks }}</td>
+    </tr>
+    <tr>
+      <td>Central Nervous System (CNS):</td>
+      <td>{{ data.cns }}</td>
+      <td>CNS Remarks:</td>
+      <td>{{ data.cnsremarks }}</td>
+    </tr>
+    <tr>
+      <td>Computed Tomography (CT):</td>
+      <td>{{ data.ct }}</td>
+      <td>CT Remarks:</td>
+      <td>{{ data.ctremarks }}</td>
+    </tr>
+  </table>
+ <h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'analysis' }" (click)="toggleTable('analysis')">
+  CT Analysis
+  <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'analysis' }"></span>
+</h3>
+<table *ngIf="expandedTable === 'analysis'">  <thead>
+<tr>
+    <td colspan="4"><strong>CT ANALYSIS</strong></td>
+  </tr>
+</thead>
+<tr>
+  <td>Right Upper lobe:</td>
+  <td>{{ data.ctru }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.ctruremarks }}</td>
+</tr>
+<tr>
+  <td>Right Middle lobe:</td>
+  <td>{{ data.ctrm }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.ctrmremarks }}</td>
+</tr>
+<tr>
+  <td>Right Lower lobe:</td>
+  <td>{{ data.ctrl }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.ctrlremarks }}</td>
+</tr>
+<tr>
+  <td>Left Upper lobe:</td>
+  <td>{{ data.ctlu }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.ctluremarks }}</td>
+</tr>
+<tr>
+  <td>Left Lingula lobe:</td>
+  <td>{{ data.ctlm }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.ctlmremarks }}</td>
+</tr>
+<tr>
+  <td>Left Lower lobe:</td>
+  <td>{{ data.ctll }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.ctllremarks }}</td>
+</tr>
+</table>
+<h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'xanalysis' }" (click)="toggleTable('xanalysis')">
+  XRAY Analysis
+  <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'xanalysis' }"></span>
+</h3>
+<table *ngIf="expandedTable === 'xanalysis'">  <thead>
+<tr>
+    <td colspan="4"><strong>XRAY ANALYSIS</strong></td>
+  </tr>
+</thead>
+<tr>
+  <td>Right Upper lobe:</td>
+  <td>{{ data.xctru }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.xctruremarks }}</td>
+</tr>
+<tr>
+  <td>Right Middle lobe:</td>
+  <td>{{ data.xctrm }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.xctrmremarks }}</td>
+</tr>
+<tr>
+  <td>Right Lower lobe:</td>
+  <td>{{ data.xctrl }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.xctrlremarks }}</td>
+</tr>
+<tr>
+  <td>Left Upper lobe:</td>
+  <td>{{ data.xctlu }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.xctluremarks }}</td>
+</tr>
+<tr>
+  <td>Left middle lobe:</td>
+  <td>{{ data.xctlm }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.xctlmremarks }}</td>
+</tr>
+<tr>
+  <td>Left Lower lobe:</td>
+  <td>{{ data.xctll }}</td>
+  <td>Remarks:</td>
+  <td>{{ data.xctllremarks }}</td>
+</tr>
+</table>
+<h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'medicine' }" (click)="toggleTable('medicine')">
+  Medicine dispensed
+  <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'medicine' }"></span>
+</h3>
+<table *ngIf="expandedTable === 'medicine'">    <thead>
+      <tr>
+        <th>MEDICINE NAME</th>
+        <th>DOSAGE</th>
+        <th>METHOD</th>
+      </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let  inquantity of data.quantities; let i = index">
+      <tr>
+        <td>{{inquantity.med}}</td>
+        <td>{{inquantity.qty}}</td>
+        <td>{{inquantity.method}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+    </table>
+<br>
+<h3 class="table-heading" [ngClass]="{ 'expanded': expandedTable === 'lab' }" (click)="toggleTable('lab')">
+  Lab results
+  <span class="arrow-icon" [ngClass]="{ 'arrow-up': expandedTable === 'lab' }"></span>
+</h3>
+<div *ngIf="expandedTable === 'lab'">
+<h4>CBC Tests</h4>
+<table >    <thead>
+      <tr>
+        <th>Investigation</th>
+        <th>Observed Value</th>
+        <th>Flag</th>
+      </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let  test of data.cbctests; let i = index">
+      <tr>
+        <td>{{test.name}}</td>
+        <td>{{test.value}}</td>
+        <td>{{test.flag}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+<h4>Diff. WBC count</h4>
+<table>    <thead>
+  <tr>
+    <th>Investigation</th>
+    <th>Observed Value</th>
+    <th>Flag</th>
+  </tr>
+</thead>
+<tbody>
+<ng-container *ngFor="let  test of data.wbccount; let i = index">
+  <tr>
+    <td>{{test.name}}</td>
+    <td>{{test.value}}</td>
+    <td>{{test.flag}}</td>
+  </tr>
+</ng-container>
+</tbody>
+</table>
+<h4>Biochem Renal</h4>
+<table>    <thead>
+<tr>
+  <th>Investigation</th>
+  <th>Observed Value</th>
+  <th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<ng-container *ngFor="let  test of data.biochemrenal; let i = index">
+<tr>
+  <td>{{test.name}}</td>
+  <td>{{test.value}}</td>
+  <td>{{test.flag}}</td>
+</tr>
+</ng-container>
+</tbody>
+</table>
+<h4>Biochem Liver</h4>
+<table>    <thead>
+<tr>
+  <th>Investigation</th>
+  <th>Observed Value</th>
+  <th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<ng-container *ngFor="let  test of data.biochemliver; let i = index">
+<tr>
+  <td>{{test.name}}</td>
+  <td>{{test.value}}</td>
+  <td>{{test.flag}}</td>
+</tr>
+</ng-container>
+</tbody>
+</table>
+<h4>Electrolysis</h4>
+<table>    <thead>
+<tr>
+  <th>Investigation</th>
+  <th>Observed Value</th>
+  <th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<ng-container *ngFor="let  test of data.electro let i = index">
+<tr>
+  <td>{{test.name}}</td>
+  <td>{{test.value}}</td>
+  <td>{{test.flag}}</td>
+</tr>
+</ng-container>
+</tbody>
+</table>
+<h4>Urine Analysis</h4>
+<table>    <thead>
+<tr>
+  <th>Investigation</th>
+  <th>Observed Value</th>
+  <th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<ng-container *ngFor="let  test of data.urine; let i = index">
+<tr>
+  <td>{{test.name}}</td>
+  <td>{{test.value}}</td>
+  <td>{{test.flag}}</td>
+</tr>
+</ng-container>
+</tbody>
+</table>
+<h4>A/G Ratio</h4>
+<table>    <thead>
+<tr>
+  <th>Investigation</th>
+  <th>Observed Value</th>
+  <th>Flag</th>
+</tr>
+</thead>
+<tbody>
+<ng-container *ngFor="let  test of data.agr; let i = index">
+<tr>
+  <td>{{test.name}}</td>
+  <td>{{test.value}}</td>
+  <td>{{test.flag}}</td>
+</tr>
+</ng-container>
+</tbody>
+</table>
+  </div>
+<br>
+<div class="row">
+  <div>
+    <mat-label class="mat-button1" title="Uploaded PDF document(s)">LAB REPORT</mat-label>
+    <span *ngIf="data.pdfFiles.length > 0">
+      <br>
+      <ul>
+        <li *ngFor="let file of data.pdfFiles; let i = index">
+          {{ data.pdfFileNames[i] }}
+          <button mat-button class="download-button" (click)="downloadPDF(file, data.pdfFileNames[i])">Download</button>
+          <button mat-button class="view-button" (click)="openPdfDialog(file, data.pdfFileNames[i])">View</button>
+        </li>
+      </ul>
+    </span>
+  </div>
+</div>
+<br>
+Prescription Images: 
+  <div class="image-container" *ngIf="data.predata.length > 0">
+    <div *ngFor="let itema of data.predata; let i = index" class="profile-image">
+      <img [src]="itema.images" alt="Profile" class="passport-size" (click)="openModal(itema.images)">
+    </div>
+  </div>
+<br>
+Lab Images:
+<div class="image-container" *ngIf="data.adata.length > 0">
+  <div *ngFor="let itemb of data.adata; let i = index" class="profile-image">
+    <img [src]="itemb.images" alt="Profile" class="passport-size" (click)="openModal(itemb.images)">
+  </div>
+</div>
+</div><br>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Close</button>
+</div>

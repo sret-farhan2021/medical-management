@@ -1,0 +1,94 @@
+::ng-deep .mat-dialog-container {
+  opacity: 0.9;
+  background: linear-gradient(to bottom, #fff, #f1f1f1);
+}
+.details-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: linear-gradient(to bottom, #fff, #f1f1f1);
+  height: 500px;
+}
+p {
+  padding: 10px; /* sets 10px padding on all sides of the paragraph element */
+}
+.hover-card {
+  position: relative;
+  height: 200px;
+  width: 300px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 3px solid #5e5d5d;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 80%; 
+  margin: 0 auto;
+}
+
+td, th {
+  border: 1px solid #171717;
+  text-align: center;
+  padding: 8px;
+}
+th {
+  font-style: oblique;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.hover-card.maximized {
+  position: absolute;
+  top: -2;
+  left: 0;
+  width: 96%;
+  max-height: 90%;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  overflow-y: auto;
+  z-index: 999;
+  padding: 5px;
+}
+
+.hover-card:nth-child(1) {
+  top: 10;
+  left: 15px;
+}
+
+.hover-card:nth-child(2) {
+  top: 10;
+  left: 20px;
+}
+.hover-card:nth-child(3) {
+  top: 10;
+  left: 25px;
+}
+.hover-card:nth-child(4) {
+  top: 10;
+  left: 20px;
+}
+.hover-card:nth-child(5) {
+  top: 10;
+  left: 20px;
+}.hover-card:nth-child(6) {
+  top: 10;
+  left: 20px;
+}
+
+
+

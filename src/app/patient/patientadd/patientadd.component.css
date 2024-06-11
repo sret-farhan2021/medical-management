@@ -1,0 +1,99 @@
+.row{
+    padding: 5px;
+    margin: 5px;
+}
+textarea{
+    resize: none;
+  }
+h1{
+    color: black;
+}
+.upload-button {
+    background-color: #78cef3; /* Replace #ff0000 with your desired color value */
+    color: #000000; /* Replace #ffffff with the desired text color */
+  }
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content: flex-start;
+  }
+  
+  .profile-image {
+    margin-right: 10px;
+    flex-basis: calc(33.33% - 10px); /* Adjust this value to adjust the spacing between images */
+    margin-bottom: 10px; /* Adjust this value to adjust the spacing between rows */
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightblue;
+  }
+  
+  .passport-size {
+    max-width: 100%;
+    max-height: 150px; /* Adjust this value to match the desired height */
+    object-fit: contain;
+  }
+  
+  .remove-button {
+    margin-top: 5px; /* Adjust this value to adjust the spacing between the image and the remove button */
+  }
+  .custom-textarea {
+    width: 900px !important;
+  }
+  .custom-mat-form-field {
+    width: 500px;
+    height: 150px;
+  }
+  .custom-mat-form-field1 {
+    width: 450px;
+    height: 150px;
+  }
+  /* Add this CSS to your styles.css or component's CSS file */
+
+.remove-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: rgb(250, 128, 128);
+}
+/* Add this CSS to your styles.css or component's CSS file */
+
+.mat-button {
+  display: inline-block;
+  padding: 5px;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.mat-button:hover {
+background-color: lightblue;
+}
+.unit-input {
+  position: relative;
+}
+
+.unit-input input {
+  padding-right: 40px; /* Adjust as needed */
+}
+
+.unit-input::after {
+  content: attr(data-unit);
+  position: absolute;
+  right: 10px; /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+}
+.unit-input { 
+  display: flex;
+  align-items: center;
+}
+
+.unit-text {
+  margin-left: 8px; /* Adjust as needed */
+  color: rgba(0, 0, 0, 0.54); /* Adjust color as needed */
+}

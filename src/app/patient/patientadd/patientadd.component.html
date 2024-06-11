@@ -1,0 +1,1149 @@
+<h1 mat-dialog-title>New patient</h1>
+<form (ngSubmit)="saveData()" #dataForm="ngForm">
+  <mat-dialog-content>
+    <!--personal info-->
+    <div class="row">
+      Doctor ID:
+      <mat-form-field appearance="fill">
+        <mat-label>enter doctor ID:</mat-label>
+        <input matInput placeholder="Doctor ID" name="did" [(ngModel)]="data.did" #did="ngModel"   >
+        <mat-error *ngIf="did.invalid && did.touched">ID is neseccary.</mat-error>
+      </mat-form-field> &nbsp;
+       Doctor Name:
+        <mat-form-field appearance="fill">
+          <mat-label>enter doctor name:</mat-label>
+          <input matInput placeholder="Name" name="dname" [(ngModel)]="data.dname" #dname="ngModel"   pattern="[a-zA-Z\s]+">
+          <mat-error *ngIf="dname.invalid && dname.touched">Name can only contain letters and spaces.</mat-error>
+        </mat-form-field> &nbsp;
+      </div>
+    <div class="row">
+    Patient ID:
+    <mat-form-field appearance="fill">
+      <mat-label>enter patient ID:</mat-label>
+      <input matInput placeholder="Patient ID" name="pid" [(ngModel)]="data.pid" #pid="ngModel"   >
+      <mat-error *ngIf="pid.invalid && pid.touched">ID is neseccary.</mat-error>
+    </mat-form-field> &nbsp;
+     Patient Name:
+      <mat-form-field appearance="fill">
+        <mat-label>enter patient name:</mat-label>
+        <input matInput placeholder="Name" name="name" [(ngModel)]="data.name" #name="ngModel"   pattern="[a-zA-Z\s]+">
+        <mat-error *ngIf="name.invalid && name.touched">Name can only contain letters and spaces.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Phone number:
+      <mat-form-field appearance="fill">
+        <mat-label>Enter the Phone number:</mat-label>
+        <input matInput placeholder="Phone no" name="phone" [(ngModel)]="data.phone" #phone="ngModel"   pattern="[0-9]{10}">
+        <mat-error *ngIf="phone.invalid && phone.touched">Please enter a valid 10-digit phone number.</mat-error>
+      </mat-form-field> &nbsp;
+      Email:
+      <mat-form-field appearance="fill">
+        <mat-label>enter email:</mat-label>
+        <input matInput placeholder="If no email present leave blank" name="email" [(ngModel)]="data.email"  #email="ngModel" email>
+        <mat-error *ngIf="email.invalid && email.touched">Please enter a valid email address.</mat-error>
+      </mat-form-field> &nbsp;
+      </div>
+      <div class="row">
+        Address:
+        <mat-form-field appearance="fill" class="custom-mat-form-field">
+          <mat-label>Enter Address:</mat-label>
+          <textarea matInput rows="4" placeholder="Address" name="address" [(ngModel)]="data.address" #address="ngModel"  ></textarea>
+          <mat-error *ngIf="address.invalid && address.touched">Please enter an address.</mat-error>
+        </mat-form-field> &nbsp;
+      </div>
+      
+    <div class="row">
+      D.O.B:
+      <mat-form-field appearance="fill">
+        <mat-label>Date of birth</mat-label>
+        <input matInput [matDatepicker]="dobPicker" name="dob"   [(ngModel)]="data.dob">
+        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+        <mat-datepicker #dobPicker></mat-datepicker>
+        <mat-error *ngIf="!data.dob">Please enter a valid date of birth.</mat-error>
+      </mat-form-field> &nbsp;
+      Age:
+      <mat-form-field appearance="fill">
+        <mat-label>enter age:</mat-label>
+        <input matInput placeholder="Age" name="age" [(ngModel)]="data.age" #age="ngModel"   type="number"> 
+        <mat-error *ngIf="age.invalid && age.touched && (age.value > 18 || age.value < 80)">Please enter a valid Age.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Gender:
+      <mat-form-field appearance="fill">
+        <mat-label>Choose Your gender:</mat-label>
+        <mat-select matNativeControl name="gender" [(ngModel)]="data.gender"  #gender="ngModel"  >
+          <mat-error *ngIf="gender.invalid && gender.touched">Value must be selected.</mat-error>
+          <mat-option value="male">Male</mat-option>
+          <mat-option value="female">Female</mat-option>
+          <mat-option value="trans">Transgender</mat-option>
+        </mat-select>
+      </mat-form-field>
+      Reffered by:
+      <mat-form-field appearance="fill">
+        <mat-label>Reffered by:</mat-label>
+        <textarea matInput rows="4" placeholder="Reffered" name="reffered" [(ngModel)]="data.reffered" #reffered="ngModel"   ></textarea>
+        <mat-error *ngIf="reffered.invalid && reffered.touched">Please enter reffered by.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    
+    <!--Additional personal information-->
+    <h3>Details</h3>
+    <div class="row">
+      Date of visit:
+      <mat-form-field appearance="fill">
+        <mat-label>Date of visit</mat-label>
+        <input matInput [matDatepicker]="dobPicker1" name="dov"   [(ngModel)]="data.dov">
+        <mat-datepicker-toggle matSuffix [for]="dobPicker1"></mat-datepicker-toggle>
+        <mat-datepicker #dobPicker1></mat-datepicker>
+        <mat-error *ngIf="!data.dov">Please enter a valid date of visit.</mat-error>
+      </mat-form-field> &nbsp;
+      Visit number:
+      <mat-form-field appearance="fill">
+        <mat-label>enter visit number:</mat-label>
+        <input matInput placeholder="visit number" name="vno" [(ngModel)]="data.vno" #vno="ngModel"   type="number">
+        <mat-error *ngIf="vno.invalid && vno.touched">Please enter a valid Age.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+        Cough type:
+        <mat-form-field appearance="fill">
+          <mat-label>Cough type:</mat-label>
+          <mat-select matNativeControl name="cough" [(ngModel)]="data.cough"  #cough="ngModel"  >
+            <mat-error *ngIf="cough.invalid && cough.touched">Value must be selected.</mat-error>
+            <mat-option value="dry">dry</mat-option>
+            <mat-option value="productive">productive</mat-option>
+          </mat-select>
+        </mat-form-field>
+        Remarks:
+      <mat-form-field appearance="fill" class="custom-mat-form-field">
+        <mat-label>Remarks:</mat-label>
+        <textarea matInput rows="4" placeholder="Remarks" name="coughremarks" [(ngModel)]="data.coughremarks" #coughremarks="ngModel"   ></textarea>
+        <mat-error *ngIf="coughremarks.invalid && coughremarks.touched">Enter a remark.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+     Cough frequency:
+      <mat-form-field appearance="fill">
+        <mat-label>Cough frequency:</mat-label>
+        <input matInput placeholder="frequency of cough" name="coughno" [(ngModel)]="data.coughno" #coughno="ngModel"   type="number">
+        <mat-error *ngIf="coughno.invalid && coughno.touched">Please enter a valid Age.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Breathlessness:
+      <mat-form-field appearance="fill">
+        <mat-label>Breathlessness:</mat-label>
+        <mat-select matNativeControl name="breath" [(ngModel)]="data.breath"  #breath="ngModel"  >
+          <mat-error *ngIf="breath.invalid && breath.touched">Value must be selected.</mat-error>
+          <mat-option value="GRADE I">GRADE I</mat-option>
+          <mat-option value="GRADE II">GRADE II</mat-option>
+          <mat-option value="GRADE III">GRADE III</mat-option>
+          <mat-option value="GRADE IV">GRADE IV</mat-option>
+        </mat-select>
+      </mat-form-field>
+      Remarks:
+    <mat-form-field appearance="fill" class="custom-mat-form-field">
+      <mat-label>Remarks:</mat-label>
+      <textarea matInput rows="4" placeholder="Remarks" name="breathremarks" [(ngModel)]="data.breathremarks" #breathremarks="ngModel"   ></textarea>
+      <mat-error *ngIf="breathremarks.invalid && breathremarks.touched">Enter a remark.</mat-error>
+    </mat-form-field> &nbsp;
+  </div>
+  <div class="row">
+    Sputum:
+    <mat-form-field appearance="fill" >
+      <mat-label>Sputum:</mat-label>
+      <mat-select matNativeControl name="sputum" [(ngModel)]="data.sputum"  #sputum="ngModel"  >
+        <mat-error *ngIf="sputum.invalid && sputum.touched">Value must be selected.</mat-error>
+        <mat-option value="minimal">minimal</mat-option>
+        <mat-option value="copious">copious</mat-option>
+      </mat-select>
+    </mat-form-field>
+    Remarks:
+  <mat-form-field appearance="fill" >
+    <mat-label>Remarks:</mat-label>
+    <mat-select matNativeControl name="sputumremarks" [(ngModel)]="data.sputumremarks" #sputumremarks="ngModel"   >
+    <mat-error *ngIf="sputumremarks.invalid && sputumremarks.touched">Enter a remark.</mat-error>
+    <mat-option value="Less than 10 ml">Less than 10 ml</mat-option>
+    <mat-option value="More than 10 ml and Less than 50 ml">More than 10 ml and Less than 50 ml</mat-option>
+    <mat-option value="More than 50 ml and Less than 100 ml">More than 50 ml and Less than 100 ml</mat-option>
+    <mat-option value="More than 100 ml">More than 100 ml</mat-option>
+  </mat-select> &nbsp;
+</mat-form-field>
+</div>
+<div class="row">
+  Hemoptysis:
+  <mat-form-field appearance="fill">
+    <mat-label>Hemoptysis:</mat-label>
+    <mat-select matNativeControl name="hemoptysis" [(ngModel)]="data.hemoptysis"  #hemoptysis="ngModel"  >
+      <mat-error *ngIf="hemoptysis.invalid && hemoptysis.touched">Value must be selected.</mat-error>
+      <mat-option value="mild">mild</mat-option>
+      <mat-option value="moderate">moderate</mat-option>
+      <mat-option value="severe">severe</mat-option>
+      <mat-option value="massive">massive</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+  <mat-label>Remarks:</mat-label>
+  <textarea matInput rows="4" placeholder="Remarks" name="hemoremarks" [(ngModel)]="data.hemoremarks" #hemoremarks="ngModel"   ></textarea>
+  <mat-error *ngIf="hemoremarks.invalid && hemoremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+Chest pain:
+  <mat-form-field appearance="fill" >
+    <mat-label>Chest pain:</mat-label>
+    <mat-select matNativeControl name="chestpain" [(ngModel)]="data.chestpain"  #chestpain="ngModel"  >
+      <mat-error *ngIf="chestpain.invalid && chestpain.touched">Value must be selected.</mat-error>
+      <mat-option value="yes">yes</mat-option>
+      <mat-option value="no">no</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Remarks:
+  <div *ngIf="data.chestpain === 'yes'">
+<mat-form-field appearance="fill" >
+  <mat-label>Remarks:</mat-label>
+  <mat-select matNativeControl name="chestremarks" [(ngModel)]="data.chestremarks" #chestremarks="ngModel"   >
+  <mat-error *ngIf="chestremarks.invalid && chestremarks.touched">Enter a remark.</mat-error>
+  <mat-option value="pleuretic">pleuretic</mat-option>
+  <mat-option value="non pleuretic">non pleuretic</mat-option>
+  </mat-select>
+</mat-form-field> &nbsp;
+</div>
+</div>
+<div class="row">
+  Fever:
+    <mat-form-field appearance="fill">
+      <mat-label>Fever:</mat-label>
+      <mat-select matNativeControl name="fever" [(ngModel)]="data.fever"  #fever="ngModel"  >
+        <mat-error *ngIf="fever.invalid && fever.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+    Remarks:
+  <mat-form-field appearance="fill" class="custom-mat-form-field">
+    <mat-label>Remarks:</mat-label>
+    <textarea matInput rows="4" placeholder="Remarks" name="feverremarks" [(ngModel)]="data.feverremarks" #feverremarks="ngModel"   ></textarea>
+    <mat-error *ngIf="feverremarks.invalid && feverremarks.touched">Enter a remark.</mat-error>
+  </mat-form-field> &nbsp;
+  </div>
+  <div class="row">
+    Wheeze:
+      <mat-form-field appearance="fill">
+        <mat-label>Wheeze:</mat-label>
+        <mat-select matNativeControl name="wheeze" [(ngModel)]="data.wheeze"  #wheeze="ngModel"  >
+          <mat-error *ngIf="wheeze.invalid && wheeze.touched">Value must be selected.</mat-error>
+          <mat-option value="seasonal">Seasonal</mat-option>
+          <mat-option value="familial">Familial</mat-option>
+          <mat-option value="nocturnal">Nocturnal</mat-option>
+        </mat-select>
+      </mat-form-field>
+      Remarks:
+    <mat-form-field appearance="fill" class="custom-mat-form-field">
+      <mat-label>Remarks:</mat-label>
+      <textarea matInput rows="4" placeholder="Remarks" name="wheezeremarks" [(ngModel)]="data.wheezeremarks" #wheezeremarks="ngModel"   ></textarea>
+      <mat-error *ngIf="wheezeremarks.invalid && wheezeremarks.touched">Enter a remark.</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+<div class="row">
+      Allergy:
+        <mat-form-field appearance="fill">
+          <mat-label>Allergy:</mat-label>
+          <mat-select matNativeControl name="allergy" [(ngModel)]="data.allergy"  #allergy="ngModel"  >
+            <mat-error *ngIf="allergy.invalid && allergy.touched">Value must be selected.</mat-error>
+            <mat-option value="sneeze">Sneeze</mat-option>
+            <mat-option value="running nose">Running nose</mat-option>
+          </mat-select>
+        </mat-form-field>
+        Remarks:
+      <mat-form-field appearance="fill" class="custom-mat-form-field">
+        <mat-label>Remarks:</mat-label>
+        <textarea matInput rows="4" placeholder="Remarks" name="allergyremarks" [(ngModel)]="data.allergyremarks" #allergyremarks="ngModel"   ></textarea>
+        <mat-error *ngIf="allergyremarks.invalid && allergyremarks.touched">Enter a remark.</mat-error>
+      </mat-form-field> &nbsp;
+      </div>
+      <h3>measures</h3>
+      <div class="row">
+      Loss of weight/appetite:
+      <mat-form-field appearance="fill">
+        <mat-label>enter how much weight lost:</mat-label>
+        <input matInput placeholder="lost weight" name="lweight" [(ngModel)]="data.lweight" #lweight="ngModel"   type="number">
+        <mat-error *ngIf="lweight.invalid && lweight.touched">Please enter a valid weight.</mat-error>
+      </mat-form-field> &nbsp;
+      Current weight:
+      <mat-form-field appearance="fill">
+        <mat-label>Current weight:</mat-label>
+        <input matInput placeholder="weight" name="weight" [(ngModel)]="data.weight" #weight="ngModel"   type="number">
+        <mat-error *ngIf="weight.invalid && weight.touched">Please enter a valid weight.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Height:
+      <mat-form-field appearance="fill">
+        <mat-label>Height:</mat-label>
+        <input matInput placeholder="height" name="height" [(ngModel)]="data.height" #height="ngModel"   type="number" >        <span class="unit-text">CM</span>
+        <mat-error *ngIf="height.invalid && height.touched">Please enter a valid height.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Temperature:
+      <mat-form-field appearance="fill">
+        <mat-label>Temperature:</mat-label>
+        <input matInput placeholder="temperature" name="temp" [(ngModel)]="data.temp" #temp="ngModel"   type="number">
+        <mat-error *ngIf="temp.invalid && temp.touched">Please enter a valid temperature.</mat-error>
+      </mat-form-field> &nbsp;
+      PR:
+      <mat-form-field appearance="fill">
+        <mat-label>PR:</mat-label>
+        <input matInput placeholder="pr" name="pr" [(ngModel)]="data.pr" #pr="ngModel"   type="number">
+        <mat-error *ngIf="pr.invalid && pr.touched">Please enter a valid PR value.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      BP:
+      <mat-form-field appearance="fill">
+        <mat-label>BP:</mat-label>
+        <input matInput placeholder="bp" name="bp" [(ngModel)]="data.bp" #bp="ngModel"   >
+        <mat-error *ngIf="bp.invalid && bp.touched">Please enter a valid BP value.</mat-error>
+      </mat-form-field> &nbsp;
+      SPO2:
+      <mat-form-field appearance="fill">
+        <mat-label>SPO2:</mat-label>
+        <input matInput placeholder="spo2" name="spo" [(ngModel)]="data.spo" #spo="ngModel"   type="number">
+        <mat-error *ngIf="spo.invalid && spo.touched">Please enter a valid SPO2 value.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <h3>habits</h3>
+    <div class="row">
+    DM:
+    <mat-form-field appearance="fill">
+      <mat-label>DM:</mat-label>
+      <mat-select matNativeControl name="dm" [(ngModel)]="data.dm"  #dm="ngModel"  >
+        <mat-error *ngIf="dm.invalid && dm.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+    SHT:
+    <mat-form-field appearance="fill">
+      <mat-label>SHT:</mat-label>
+      <mat-select matNativeControl name="sht" [(ngModel)]="data.sht"  #sht="ngModel"  >
+        <mat-error *ngIf="sht.invalid && sht.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    Do you smoke?:
+    <mat-form-field appearance="fill">
+      <mat-label>Do you smoke?:</mat-label>
+      <mat-select matNativeControl name="smoke" [(ngModel)]="data.smoke"  #smoke="ngModel"  >
+        <mat-error *ngIf="smoke.invalid && smoke.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    <div class="row" *ngIf="data.smoke === 'yes'">
+      Number of cigarettes smoked per day:
+      <mat-form-field appearance="fill">
+    <mat-label>Number of cigarettes smoked per day:</mat-label>
+    <input matInput type="number" name="numberofcig" [(ngModel)]="data.numberofcig">
+      </mat-form-field>
+      Number of Years smoked:
+      <mat-form-field appearance="fill">
+        <mat-label>Number of Years smoked:</mat-label>
+        <input matInput type="number" name="numbersmoke" [(ngModel)]="data.numbersmoke">
+      </mat-form-field>
+    </div>
+  <div class="row">
+    Do you Drink?:
+    <mat-form-field appearance="fill">
+      <mat-label>Do you Drink?:</mat-label>
+      <mat-select matNativeControl name="drink" [(ngModel)]="data.drink"  #drink="ngModel"  >
+        <mat-error *ngIf="drink.invalid && drink.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="data.drink === 'yes'">
+    Frequency of drinks per week:
+    <mat-form-field appearance="fill">
+  <mat-label>Frequency of drinks per week:</mat-label>
+  <input matInput type="number" name="numberofdrink" [(ngModel)]="data.numberofdrink">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    T2 DM:
+      <mat-form-field appearance="fill">
+        <mat-label>T2 DM:</mat-label>
+        <mat-select matNativeControl name="t2dm" [(ngModel)]="data.t2dm"  #t2dm="ngModel"  >
+          <mat-error *ngIf="t2dm.invalid && t2dm.touched">Value must be selected.</mat-error>
+          <mat-option value="yes">yes</mat-option>
+          <mat-option value="no">no</mat-option>
+        </mat-select>
+      </mat-form-field>
+        SHD:
+        <mat-form-field appearance="fill">
+          <mat-label>SHD:</mat-label>
+          <mat-select matNativeControl name="shd" [(ngModel)]="data.shd"  #shd="ngModel"  >
+            <mat-error *ngIf="shd.invalid && shd.touched">Value must be selected.</mat-error>
+            <mat-option value="yes">yes</mat-option>
+            <mat-option value="no">no</mat-option>
+          </mat-select>
+        </mat-form-field>
+  </div>
+  <div class="row">
+    CAD:
+      <mat-form-field appearance="fill">
+        <mat-label>CAD:</mat-label>
+        <mat-select matNativeControl name="cad" [(ngModel)]="data.cad"  #cad="ngModel"  >
+          <mat-error *ngIf="cad.invalid && cad.touched">Value must be selected.</mat-error>
+          <mat-option value="yes">yes</mat-option>
+          <mat-option value="no">no</mat-option>
+        </mat-select>
+      </mat-form-field>
+        CVA:
+        <mat-form-field appearance="fill">
+          <mat-label>CVA:</mat-label>
+          <mat-select matNativeControl name="cva" [(ngModel)]="data.cva"  #cva="ngModel"  >
+            <mat-error *ngIf="cva.invalid && cva.touched">Value must be selected.</mat-error>
+            <mat-option value="yes">yes</mat-option>
+            <mat-option value="no">no</mat-option>
+          </mat-select>
+      </mat-form-field>
+  </div>
+  <div class="row">
+    Seizure Disorder:
+      <mat-form-field appearance="fill">
+        <mat-label>seizure:</mat-label>
+        <mat-select matNativeControl name="seizure" [(ngModel)]="data.seizure"  #seizure="ngModel"  >
+          <mat-error *ngIf="seizure.invalid && seizure.touched">Value must be selected.</mat-error>
+          <mat-option value="yes">yes</mat-option>
+          <mat-option value="no">no</mat-option>
+        </mat-select>
+        </mat-form-field>
+        Any previous surgeries:
+    <mat-form-field appearance="fill">
+      <mat-label>Mention if any surgeries done:</mat-label>
+      <input matInput placeholder="enter type of surgery" name="surgery" [(ngModel)]="data.surgery" #surgery="ngModel"   >
+      <mat-error *ngIf="surgery.invalid && surgery.touched">Please enter data if none type none.</mat-error>
+    </mat-form-field> &nbsp;
+  </div>
+  <div class="row">
+    H/O ATT:
+    <mat-form-field appearance="fill">
+      <mat-label>H/O ATT:</mat-label>
+      <mat-select matNativeControl name="att" [(ngModel)]="data.att"  #att="ngModel"  >
+        <mat-error *ngIf="att.invalid && att.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="row" *ngIf="data.att === 'yes'">
+    Name of Medicines:
+    <mat-form-field appearance="fill">
+  <mat-label>Name of Medicines:</mat-label>
+  <textarea matInput rows="4" name="namemedicines" [(ngModel)]="data.namemedicines"></textarea>
+    </mat-form-field>
+    Number of Years:
+    <mat-form-field appearance="fill">
+      <mat-label>Number of Years:</mat-label>
+      <input matInput type="number" name="numberofyears" [(ngModel)]="data.numberofyears">
+    </mat-form-field>
+  </div>
+  <div class="row" >
+    Sputum AFB Test:
+    <mat-form-field appearance="fill">
+  <mat-label>Sputum AFB Test:</mat-label>
+  <mat-select matNativeControl name="safb" [(ngModel)]="data.safb"  #safb="ngModel"  >
+    <mat-error *ngIf="safb.invalid && safb.touched">Value must be selected.</mat-error>
+    <mat-option value="Positive">Positive</mat-option>
+    <mat-option value="Negative">Negative</mat-option>
+  </mat-select>
+    </mat-form-field>
+    AFB Cells:
+    <mat-form-field appearance="fill">
+      <mat-label>AFB Cells:</mat-label>
+      <mat-select matNativeControl name="afb" [(ngModel)]="data.afb"  #afb="ngModel"  >
+      <mat-option value="Detected">detected</mat-option>
+      <mat-option value="Not detected">detected</mat-option>
+      </mat-select>
+      </mat-form-field>
+  </div>
+  <div class="row">
+   LPA Test:
+    <mat-form-field appearance="fill">
+      <mat-label>LPA Test:</mat-label>
+      <mat-select matNativeControl name="lpa" [(ngModel)]="data.lpa"  #lpa="ngModel"  >
+      <mat-option value="Present">Present</mat-option>
+      <mat-option value="Absent">Absent</mat-option>
+      </mat-select>
+      </mat-form-field>
+  </div>
+
+  <h3>Symptoms</h3>
+  <div class="row">
+    Anemia:
+    <mat-form-field appearance="fill">
+      <mat-label>Anemia:</mat-label>
+      <mat-select matNativeControl name="anemia" [(ngModel)]="data.anemia"  #anemia="ngModel"  >
+        <mat-error *ngIf="anemia.invalid && anemia.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+    Remarks:
+    <mat-form-field appearance="fill" class="custom-mat-form-field">
+      <mat-label>Remarks:</mat-label>
+      <textarea matInput rows="4" placeholder="Remarks" name="anemiaremarks" [(ngModel)]="data.anemiaremarks" #anemiaremarks="ngModel"   ></textarea>
+      <mat-error *ngIf="anemiaremarks.invalid && anemiaremarks.touched">Enter a remark.</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+<div class="row">
+    Cyanosis:
+    <mat-form-field appearance="fill">
+      <mat-label>Cyanosis:</mat-label>
+      <mat-select matNativeControl name="cyan" [(ngModel)]="data.cyan"  #cyan="ngModel"  >
+        <mat-error *ngIf="cyan.invalid && cyan.touched">Value must be selected.</mat-error>
+        <mat-option value="yes">yes</mat-option>
+        <mat-option value="no">no</mat-option>
+      </mat-select>
+    </mat-form-field>
+    Remarks:
+    <mat-form-field appearance="fill" class="custom-mat-form-field">
+      <mat-label>Remarks:</mat-label>
+      <textarea matInput rows="4" placeholder="Remarks" name="cyanremarks" [(ngModel)]="data.cyanremarks" #cyanremarks="ngModel"   ></textarea>
+      <mat-error *ngIf="cyanremarks.invalid && cyanremarks.touched">Enter a remark.</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Clubbing:
+      <mat-form-field appearance="fill" >
+        <mat-label>Clubbing:</mat-label>
+        <mat-select matNativeControl name="club" [(ngModel)]="data.club"  #club="ngModel"  >
+          <mat-error *ngIf="club.invalid && club.touched">Value must be selected.</mat-error>
+          <mat-option value="yes">yes</mat-option>
+          <mat-option value="no">no</mat-option>
+        </mat-select>
+      </mat-form-field>
+      Remarks:
+      <mat-form-field appearance="fill" class="custom-mat-form-field">
+        <mat-label>Remarks:</mat-label>
+        <textarea matInput rows="4" placeholder="Remarks" name="clubremarks" [(ngModel)]="data.clubremarks" #clubremarks="ngModel"   ></textarea>
+        <mat-error *ngIf="clubremarks.invalid && clubremarks.touched">Enter a remark.</mat-error>
+      </mat-form-field> &nbsp;
+      </div>
+      <div class="row">
+        Lymphadenopathy:
+        <mat-form-field appearance="fill">
+          <mat-label>Lymphadenopathy:</mat-label>
+          <mat-select matNativeControl name="lymph" [(ngModel)]="data.lymph"  #lymph="ngModel"  >
+            <mat-error *ngIf="lymph.invalid && lymph.touched">Value must be selected.</mat-error>
+            <mat-option value="yes">yes</mat-option>
+            <mat-option value="no">no</mat-option>
+          </mat-select>
+        </mat-form-field>
+        Remarks:
+        <mat-form-field appearance="fill" class="custom-mat-form-field1">
+          <mat-label>Remarks:</mat-label>
+          <textarea matInput rows="4" placeholder="Remarks" name="lymphremarks" [(ngModel)]="data.lymphremarks" #lymphremarks="ngModel"   ></textarea>
+          <mat-error *ngIf="lymphremarks.invalid && lymphremarks.touched">Enter a remark.</mat-error>
+        </mat-form-field> &nbsp;
+        </div>
+        <div class="row">
+          Edema:
+          <mat-form-field appearance="fill">
+            <mat-label>Edema:</mat-label>
+            <mat-select matNativeControl name="edema" [(ngModel)]="data.edema"  #edema="ngModel"  >
+              <mat-error *ngIf="edema.invalid && edema.touched">Value must be selected.</mat-error>
+              <mat-option value="yes">yes</mat-option>
+              <mat-option value="no">no</mat-option>
+            </mat-select>
+          </mat-form-field>
+        Remarks:
+          <mat-form-field appearance="fill" class="custom-mat-form-field">
+            <mat-label>Remarks:</mat-label>
+            <textarea matInput rows="4" placeholder="Remarks" name="edemaremarks" [(ngModel)]="data.edemaremarks" #edemaremarks="ngModel"   ></textarea>
+            <mat-error *ngIf="edemaremarks.invalid && edemaremarks.touched">Enter a remark.</mat-error>
+          </mat-form-field> &nbsp;
+          </div>
+          <div class="row">
+            Icterus:
+            <mat-form-field appearance="fill">
+              <mat-label>Icterus:</mat-label>
+              <mat-select matNativeControl name="icterus" [(ngModel)]="data.icterus"  #icterus="ngModel"  >
+                <mat-error *ngIf="icterus.invalid && icterus.touched">Value must be selected.</mat-error>
+                <mat-option value="yes">yes</mat-option>
+                <mat-option value="no">no</mat-option>
+              </mat-select>
+            </mat-form-field>
+            Remarks:
+            <mat-form-field appearance="fill" class="custom-mat-form-field">
+              <mat-label>Remarks:</mat-label>
+              <textarea matInput rows="4" placeholder="Remarks" name="ictremarks" [(ngModel)]="data.ictremarks" #ictremarks="ngModel"   ></textarea>
+              <mat-error *ngIf="ictremarks.invalid && ictremarks.touched">Enter a remark.</mat-error>
+            </mat-form-field> &nbsp;
+            </div>
+            <div class="row">
+              JVP:
+              <mat-form-field appearance="fill">
+                <mat-label>JVP:</mat-label>
+                <mat-select matNativeControl name="jvp" [(ngModel)]="data.jvp"  #jvp="ngModel"  >
+                  <mat-error *ngIf="jvp.invalid && jvp.touched">Value must be selected.</mat-error>
+                  <mat-option value="yes">yes</mat-option>
+                  <mat-option value="no">no</mat-option>
+                </mat-select>
+              </mat-form-field>
+              Remarks:
+              <mat-form-field appearance="fill" class="custom-mat-form-field">
+                <mat-label>Remarks:</mat-label>
+                <textarea matInput rows="4" placeholder="Remarks" name="jvpremarks" [(ngModel)]="data.jvpremarks" #jvpremarks="ngModel"   ></textarea>
+                <mat-error *ngIf="jvpremarks.invalid && jvpremarks.touched">Enter a remark.</mat-error>
+              </mat-form-field> &nbsp;
+              </div>
+<h3>medic terms</h3>
+<div class="row">
+  CVS:
+  <mat-form-field appearance="fill">
+    <mat-label>CVS:</mat-label>
+    <mat-select matNativeControl name="cvs" [(ngModel)]="data.cvs"  #cvs="ngModel"  >
+      <mat-error *ngIf="cvs.invalid && cvs.touched">Value must be selected.</mat-error>
+      <mat-option value="normal">Normal</mat-option>
+      <mat-option value="abnormal">Abnormal</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Remarks:
+  <mat-form-field appearance="fill" class="custom-mat-form-field">
+    <mat-label>Remarks:</mat-label>
+    <textarea matInput rows="4" placeholder="Remarks" name="cvsremarks" [(ngModel)]="data.cvsremarks" #cvsremarks="ngModel"   ></textarea>
+    <mat-error *ngIf="cvsremarks.invalid && cvsremarks.touched">Enter a remark.</mat-error>
+  </mat-form-field> &nbsp;
+  </div>
+  <div class="row">
+    PEFR:
+    <mat-form-field appearance="fill">
+      <mat-label>PEFR:</mat-label>
+      <mat-select matNativeControl name="pefr" [(ngModel)]="data.pefr"  #pefr="ngModel"  >
+        <mat-error *ngIf="pefr.invalid && pefr.touched">Value must be selected.</mat-error>
+        <mat-option value="normal">Normal</mat-option>
+        <mat-option value="abnormal">Abnormal</mat-option>
+      </mat-select>
+    </mat-form-field>
+    Remarks:
+    <mat-form-field appearance="fill" class="custom-mat-form-field">
+      <mat-label>Remarks:</mat-label>
+      <textarea matInput rows="4" placeholder="Remarks" name="pefrremarks" [(ngModel)]="data.pefrremarks" #pefrremarks="ngModel"   ></textarea>
+      <mat-error *ngIf="pefrremarks.invalid && pefrremarks.touched">Enter a remark.</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+<div class="row">
+RS(left):
+<mat-form-field appearance="fill">
+  <mat-label>RS(left):</mat-label>
+  <mat-select matNativeControl name="rsleft" [(ngModel)]="data.rsleft"  #rsleft="ngModel"  >
+    <mat-error *ngIf="rsleft.invalid && rsleft.touched">Value must be selected.</mat-error>
+    <mat-option value="normal">Normal</mat-option>
+    <mat-option value="abnormal">Abnormal</mat-option>
+  </mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+  <mat-label>Remarks:</mat-label>
+  <textarea matInput rows="4" placeholder="Remarks" name="rsleftremarks" [(ngModel)]="data.rsleftremarks" #rsleftremarks="ngModel"   ></textarea>
+  <mat-error *ngIf="rsleftremarks.invalid && rsleftremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+RS(right):
+<mat-form-field appearance="fill" >
+  <mat-label>RS(right):</mat-label>
+  <mat-select matNativeControl name="rsright" [(ngModel)]="data.rsright"  #rsright="ngModel"  >
+    <mat-error *ngIf="rsright.invalid && rsright.touched">Value must be selected.</mat-error>
+    <mat-option value="normal">Normal</mat-option>
+    <mat-option value="abnormal">Abnormal</mat-option>
+  </mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+  <mat-label>Remarks:</mat-label>
+  <textarea matInput rows="4" placeholder="Remarks" name="rsrightremarks" [(ngModel)]="data.rsrightremarks" #rsrightremarks="ngModel"   ></textarea>
+  <mat-error *ngIf="rsrightremarks.invalid && rsrightremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+  P/A:
+  <mat-form-field appearance="fill">
+    <mat-label>P/A:</mat-label>
+    <mat-select matNativeControl name="pa" [(ngModel)]="data.pa"  #pa="ngModel"  >
+      <mat-error *ngIf="pa.invalid && pa.touched">Value must be selected.</mat-error>
+      <mat-option value="normal">Normal</mat-option>
+      <mat-option value="abnormal">Abnormal</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Remarks:
+  <mat-form-field appearance="fill" class="custom-mat-form-field">
+    <mat-label>Remarks:</mat-label>
+    <textarea matInput rows="4" placeholder="Remarks" name="paremarks" [(ngModel)]="data.paremarks" #paremarks="ngModel"   ></textarea>
+    <mat-error *ngIf="paremarks.invalid && paremarks.touched">Enter a remark.</mat-error>
+  </mat-form-field> &nbsp;
+  </div>
+<div class="row">
+CNS:
+<mat-form-field appearance="fill">
+  <mat-label>CNS:</mat-label>
+  <mat-select matNativeControl name="cns" [(ngModel)]="data.cns"  #cns="ngModel"  >
+    <mat-error *ngIf="cns.invalid && cns.touched">Value must be selected.</mat-error>
+    <mat-option value="normal">Normal</mat-option>
+    <mat-option value="abnormal">Abnormal</mat-option>
+  </mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+  <mat-label>Remarks:</mat-label>
+  <textarea matInput rows="4" placeholder="Remarks" name="cnsremarks" [(ngModel)]="data.cnsremarks" #cnsremarks="ngModel"   ></textarea>
+  <mat-error *ngIf="cnsremarks.invalid && cnsremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+  CT THORAX:
+  <mat-form-field appearance="fill">
+    <mat-label>CT THORAX:</mat-label>
+    <mat-select matNativeControl name="ct" [(ngModel)]="data.ct"  #ct="ngModel"  >
+      <mat-error *ngIf="ct.invalid && ct.touched">Value must be selected.</mat-error>
+      <mat-option value="mild">mild</mat-option>
+      <mat-option value="medium">medium</mat-option>
+      <mat-option value="heavy">heavy</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Remarks:
+  <mat-form-field appearance="fill" class="custom-mat-form-field">
+    <mat-label>Remarks:</mat-label>
+    <textarea matInput rows="4" placeholder="Remarks" name="ctremarks" [(ngModel)]="data.ctremarks" #ctremarks="ngModel"   ></textarea>
+    <mat-error *ngIf="ctremarks.invalid && ctremarks.touched">Enter a remark.</mat-error>
+  </mat-form-field> &nbsp;
+  </div>
+<h3>CT Analysis</h3>
+<div class="row">
+<mat-form-field appearance="fill">
+  <mat-label>RIGHT UPPER LOBE:</mat-label>
+  <mat-select matNativeControl name="ctru" [(ngModel)]="data.ctru"  #ctru="ngModel"  >
+    <mat-error *ngIf="ctru.invalid && ctru.touched">Value must be selected.</mat-error>
+    <mat-option value="mild">Mild</mat-option>
+    <mat-option value="medium">Moderate</mat-option>
+    <mat-option value="heavy">Severe</mat-option>
+  </mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+  <mat-label>Remarks:</mat-label>
+  <textarea matInput rows="4" placeholder="Remarks" name="ctruremarks" [(ngModel)]="data.ctruremarks" #ctruremarks="ngModel"   ></textarea>
+  <mat-error *ngIf="ctruremarks.invalid && ctruremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+  <mat-form-field appearance="fill">
+    <mat-label>RIGHT MIDDLE LOBE:</mat-label>
+    <mat-select matNativeControl name="ctrm" [(ngModel)]="data.ctrm"  #ctrm="ngModel"  >
+      <mat-error *ngIf="ctrm.invalid && ctrm.touched">Value must be selected.</mat-error>
+      <mat-option value="mild">Mild</mat-option>
+      <mat-option value="medium">Moderate</mat-option>
+      <mat-option value="heavy">Severe</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Remarks:
+  <mat-form-field appearance="fill" class="custom-mat-form-field">
+    <mat-label>Remarks:</mat-label>
+    <textarea matInput rows="4" placeholder="Remarks" name="ctrmremarks" [(ngModel)]="data.ctrmremarks" #ctrmremarks="ngModel"   ></textarea>
+    <mat-error *ngIf="ctrmremarks.invalid && ctrmremarks.touched">Enter a remark.</mat-error>
+  </mat-form-field> &nbsp;
+  </div>
+  <div class="row">
+    <mat-form-field appearance="fill">
+      <mat-label>RIGHT LOWER LOBE:</mat-label>
+      <mat-select matNativeControl name="ctrl" [(ngModel)]="data.ctrl"  #ctrl="ngModel"  >
+        <mat-error *ngIf="ctrl.invalid && ctrl.touched">Value must be selected.</mat-error>
+        <mat-option value="mild">Mild</mat-option>
+        <mat-option value="medium">Moderate</mat-option>
+        <mat-option value="heavy">Severe</mat-option>
+      </mat-select>
+    </mat-form-field>
+    Remarks:
+    <mat-form-field appearance="fill" class="custom-mat-form-field">
+      <mat-label>Remarks:</mat-label>
+      <textarea matInput rows="4" placeholder="Remarks" name="ctrlremarks" [(ngModel)]="data.ctrlremarks" #ctrlremarks="ngModel"   ></textarea>
+      <mat-error *ngIf="ctrlremarks.invalid && ctrlremarks.touched">Enter a remark.</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      <mat-form-field appearance="fill">
+        <mat-label>LEFT UPPER LOBE:</mat-label>
+        <mat-select matNativeControl name="ctlu" [(ngModel)]="data.ctlu"  #ctlu="ngModel"  >
+          <mat-error *ngIf="ctlu.invalid && ctlu.touched">Value must be selected.</mat-error>
+          <mat-option value="mild">Mild</mat-option>
+          <mat-option value="medium">Moderate</mat-option>
+          <mat-option value="heavy">Severe</mat-option>
+        </mat-select>
+      </mat-form-field>
+      Remarks:
+      <mat-form-field appearance="fill" class="custom-mat-form-field">
+        <mat-label>Remarks:</mat-label>
+        <textarea matInput rows="4" placeholder="Remarks" name="ctluremarks" [(ngModel)]="data.ctluremarks" #ctluremarks="ngModel"   ></textarea>
+        <mat-error *ngIf="ctluremarks.invalid && ctluremarks.touched">Enter a remark.</mat-error>
+      </mat-form-field> &nbsp;
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill">
+          <mat-label>LEFT LINGULAR LOBE:</mat-label>
+          <mat-select matNativeControl name="ctlm" [(ngModel)]="data.ctlm"  #ctlm="ngModel"  >
+            <mat-error *ngIf="ctlm.invalid && ctlm.touched">Value must be selected.</mat-error>
+            <mat-option value="mild">Mild</mat-option>
+            <mat-option value="medium">Moderate</mat-option>
+            <mat-option value="heavy">Severe</mat-option>
+          </mat-select>
+        </mat-form-field>
+        Remarks:
+        <mat-form-field appearance="fill" class="custom-mat-form-field">
+          <mat-label>Remarks:</mat-label>
+          <textarea matInput rows="4" placeholder="Remarks" name="ctlmremarks" [(ngModel)]="data.ctlmremarks" #ctlmremarks="ngModel"   ></textarea>
+          <mat-error *ngIf="ctlmremarks.invalid && ctlmremarks.touched">Enter a remark.</mat-error>
+        </mat-form-field> &nbsp;
+        </div>
+        <div class="row">
+          <mat-form-field appearance="fill">
+            <mat-label>LEFT LOWER LOBE:</mat-label>
+            <mat-select matNativeControl name="ctll" [(ngModel)]="data.ctll"  #ctll="ngModel"  >
+              <mat-error *ngIf="ctll.invalid && ctll.touched">Value must be selected.</mat-error>
+              <mat-option value="mild">Mild</mat-option>
+              <mat-option value="medium">Moderate</mat-option>
+              <mat-option value="heavy">Severe</mat-option>
+            </mat-select>
+          </mat-form-field>
+          Remarks:
+          <mat-form-field appearance="fill" class="custom-mat-form-field">
+            <mat-label>Remarks:</mat-label>
+            <textarea matInput rows="4" placeholder="Remarks" name="ctllremarks" [(ngModel)]="data.ctllremarks" #ctllremarks="ngModel"   ></textarea>
+            <mat-error *ngIf="ctllremarks.invalid && ctllremarks.touched">Enter a remark.</mat-error>
+          </mat-form-field> &nbsp;
+          </div>
+<h3>XRAY Analysis</h3>
+<div class="row">
+<mat-form-field appearance="fill">
+<mat-label>RIGHT UPPER LOBE:</mat-label>
+<mat-select matNativeControl name="xctru" [(ngModel)]="data.xctru"  #xctru="ngModel"  >
+<mat-error *ngIf="xctru.invalid && xctru.touched">Value must be selected.</mat-error>
+<mat-option value="mild">Mild</mat-option>
+<mat-option value="medium">Moderate</mat-option>
+<mat-option value="heavy">Severe</mat-option>
+</mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+<mat-label>Remarks:</mat-label>
+<textarea matInput rows="4" placeholder="Remarks" name="xctruremarks" [(ngModel)]="data.xctruremarks" #xctruremarks="ngModel"   ></textarea>
+<mat-error *ngIf="xctruremarks.invalid && xctruremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+<mat-form-field appearance="fill">
+<mat-label>RIGHT MIDDLE LOBE:</mat-label>
+<mat-select matNativeControl name="xctrm" [(ngModel)]="data.xctrm"  #xctrm="ngModel"  >
+<mat-error *ngIf="xctrm.invalid && xctrm.touched">Value must be selected.</mat-error>
+<mat-option value="mild">Mild</mat-option>
+<mat-option value="medium">Moderate</mat-option>
+<mat-option value="heavy">Severe</mat-option>
+</mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+<mat-label>Remarks:</mat-label>
+<textarea matInput rows="4" placeholder="Remarks" name="xctrmremarks" [(ngModel)]="data.xctrmremarks" #xctrmremarks="ngModel"   ></textarea>
+<mat-error *ngIf="xctrmremarks.invalid && xctrmremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+<mat-form-field appearance="fill">
+<mat-label>RIGHT LOWER LOBE:</mat-label>
+<mat-select matNativeControl name="xctrl" [(ngModel)]="data.xctrl"  #xctrl="ngModel"  >
+  <mat-error *ngIf="xctrl.invalid && xctrl.touched">Value must be selected.</mat-error>
+  <mat-option value="mild">Mild</mat-option>
+  <mat-option value="medium">Moderate</mat-option>
+  <mat-option value="heavy">Severe</mat-option>
+</mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+<mat-label>Remarks:</mat-label>
+<textarea matInput rows="4" placeholder="Remarks" name="xctrlremarks" [(ngModel)]="data.xctrlremarks" #xctrlremarks="ngModel"   ></textarea>
+<mat-error *ngIf="xctrlremarks.invalid && xctrlremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+<mat-form-field appearance="fill">
+  <mat-label>LEFT UPPER LOBE:</mat-label>
+  <mat-select matNativeControl name="xctlu" [(ngModel)]="data.xctlu"  #xctlu="ngModel"  >
+    <mat-error *ngIf="xctlu.invalid && xctlu.touched">Value must be selected.</mat-error>
+    <mat-option value="mild">Mild</mat-option>
+    <mat-option value="medium">Moderate</mat-option>
+    <mat-option value="heavy">Severe</mat-option>
+  </mat-select>
+</mat-form-field>
+Remarks:
+<mat-form-field appearance="fill" class="custom-mat-form-field">
+  <mat-label>Remarks:</mat-label>
+  <textarea matInput rows="4" placeholder="Remarks" name="xctluremarks" [(ngModel)]="data.xctluremarks" #xctluremarks="ngModel"   ></textarea>
+  <mat-error *ngIf="xctluremarks.invalid && xctluremarks.touched">Enter a remark.</mat-error>
+</mat-form-field> &nbsp;
+</div>
+<div class="row">
+  <mat-form-field appearance="fill">
+    <mat-label>LEFT MIDDLE LOBE:</mat-label>
+    <mat-select matNativeControl name="xctlm" [(ngModel)]="data.xctlm"  #xctlm="ngModel"  >
+      <mat-error *ngIf="xctlm.invalid && xctlm.touched">Value must be selected.</mat-error>
+      <mat-option value="mild">Mild</mat-option>
+      <mat-option value="medium">Moderate</mat-option>
+      <mat-option value="heavy">Severe</mat-option>
+    </mat-select>
+  </mat-form-field>
+  Remarks:
+  <mat-form-field appearance="fill" class="custom-mat-form-field">
+    <mat-label>Remarks:</mat-label>
+    <textarea matInput rows="4" placeholder="Remarks" name="xctlmremarks" [(ngModel)]="data.xctlmremarks" #xctlmremarks="ngModel"   ></textarea>
+    <mat-error *ngIf="xctlmremarks.invalid && xctlmremarks.touched">Enter a remark.</mat-error>
+  </mat-form-field> &nbsp;
+  </div>
+  <div class="row">
+    <mat-form-field appearance="fill">
+      <mat-label>LEFT LOWER LOBE:</mat-label>
+      <mat-select matNativeControl name="xctll" [(ngModel)]="data.xctll"  #xctll="ngModel"  >
+        <mat-error *ngIf="xctll.invalid && xctll.touched">Value must be selected.</mat-error>
+        <mat-option value="mild">Mild</mat-option>
+        <mat-option value="medium">Moderate</mat-option>
+        <mat-option value="heavy">Severe</mat-option>
+      </mat-select>
+    </mat-form-field>
+    Remarks:
+    <mat-form-field appearance="fill" class="custom-mat-form-field">
+      <mat-label>Remarks:</mat-label>
+      <textarea matInput rows="4" placeholder="Remarks" name="xctllremarks" [(ngModel)]="data.xctllremarks" #xctllremarks="ngModel"   ></textarea>
+      <mat-error *ngIf="xctllremarks.invalid && xctllremarks.touched">Enter a remark.</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+<h3>Lab results</h3><br>
+<h2>Haemotology test</h2>
+<h1>COMPLETE BLOOD COUNT</h1>
+ <div *ngFor="let test of cbctests" class="row">
+  {{ test.name }}:
+  <mat-form-field appearance="fill">
+    <mat-label>{{ test.name }}:</mat-label>
+    <input matInput placeholder="Enter the observed value" [(ngModel)]="test.value" name="{{ test.name | lowercase }}" #input="ngModel" type="number">
+    <mat-error *ngIf="input.invalid && input.touched">Please enter a valid value.</mat-error>
+  </mat-form-field>
+  Flag:
+  <mat-form-field appearance="fill">
+    <mat-label>Flag:</mat-label>
+    <mat-select matNativeControl name="{{ 'flag' + test.name }}" [(ngModel)]="test.flag"  >
+      <mat-option value="Normal">Normal</mat-option>
+      <mat-option value="Abnormal">Abnormal</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<h1>DIFF WBC COUNT</h1>
+ <div *ngFor="let test of wbccount" class="row">
+  {{ test.name }}:
+  <mat-form-field appearance="fill">
+    <mat-label>{{ test.name }}:</mat-label>
+    <input matInput placeholder="Enter the observed value" [(ngModel)]="test.value" name="{{ test.name | lowercase }}" #input="ngModel" type="number">
+    <mat-error *ngIf="input.invalid && input.touched">Please enter a valid value.</mat-error>
+  </mat-form-field>
+  Flag:
+  <mat-form-field appearance="fill">
+    <mat-label>Flag:</mat-label>
+    <mat-select matNativeControl name="{{ 'flag' + test.name }}" [(ngModel)]="test.flag"  >
+      <mat-option value="Normal">Normal</mat-option>
+      <mat-option value="Abnormal">Abnormal</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<h1>BIO CHEM RENAL</h1>
+ <div *ngFor="let test of biochemrenal" class="row">
+  {{ test.name }}:
+  <mat-form-field appearance="fill">
+    <mat-label>{{ test.name }}:</mat-label>
+    <input matInput placeholder="Enter the observed value" [(ngModel)]="test.value" name="{{ test.name | lowercase }}" #input="ngModel" type="number">
+    <mat-error *ngIf="input.invalid && input.touched">Please enter a valid value.</mat-error>
+  </mat-form-field>
+  Flag:
+  <mat-form-field appearance="fill">
+    <mat-label>Flag:</mat-label>
+    <mat-select matNativeControl name="{{ 'flag' + test.name }}" [(ngModel)]="test.flag"  >
+      <mat-option value="Normal">Normal</mat-option>
+      <mat-option value="Abnormal">Abnormal</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<h1>ELECTROLYTES (Serum)</h1>
+ <div *ngFor="let test of electro" class="row">
+  {{ test.name }}:
+  <mat-form-field appearance="fill">
+    <mat-label>{{ test.name }}:</mat-label>
+    <input matInput placeholder="Enter the observed value" [(ngModel)]="test.value" name="{{ test.name | lowercase }}" #input="ngModel" type="number">
+    <mat-error *ngIf="input.invalid && input.touched">Please enter a valid value.</mat-error>
+  </mat-form-field>
+  Flag:
+  <mat-form-field appearance="fill">
+    <mat-label>Flag:</mat-label>
+    <mat-select matNativeControl name="{{ 'flag' + test.name }}" [(ngModel)]="test.flag"  >
+      <mat-option value="Normal">Normal</mat-option>
+      <mat-option value="Abnormal">Abnormal</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<h1>URINE TEST</h1>
+ <div *ngFor="let test of urine" class="row">
+  {{ test.name }}:
+  <mat-form-field appearance="fill">
+    <mat-label>{{ test.name }}:</mat-label>
+    <input matInput placeholder="Enter the observed value" [(ngModel)]="test.value" name="{{ test.name | lowercase }}" #input="ngModel" type="string">
+    <mat-error *ngIf="input.invalid && input.touched">Please enter a valid value.</mat-error>
+  </mat-form-field>
+  Flag:
+  <mat-form-field appearance="fill">
+    <mat-label>Flag:</mat-label>
+    <mat-select matNativeControl name="{{ 'flag' + test.name }}" [(ngModel)]="test.flag"  >
+      <mat-option value="Normal">Normal</mat-option>
+      <mat-option value="Abnormal">Abnormal</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<h1>BIOCHEMISTRY LIVER </h1>
+ <div *ngFor="let test of biochemliver" class="row">
+  {{ test.name }}:
+  <mat-form-field appearance="fill">
+    <mat-label>{{ test.name }}:</mat-label>
+    <input matInput placeholder="Enter the observed value" [(ngModel)]="test.value" name="{{ test.name | lowercase }}" #input="ngModel" type="number">
+    <mat-error *ngIf="input.invalid && input.touched">Please enter a valid value.</mat-error>
+  </mat-form-field>
+  Flag:
+  <mat-form-field appearance="fill">
+    <mat-label>Flag:</mat-label>
+    <mat-select matNativeControl name="{{ 'flag' + test.name }}" [(ngModel)]="test.flag"  >
+      <mat-option value="Normal">Normal</mat-option>
+      <mat-option value="Abnormal">Abnormal</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<h1>A/G Ratio</h1>
+ <div *ngFor="let test of agr" class="row">
+  {{ test.name }}:
+  <mat-form-field appearance="fill">
+    <mat-label>{{ test.name }}:</mat-label>
+    <input matInput placeholder="Enter the observed value" [(ngModel)]="test.value" name="{{ test.name | lowercase }}" #input="ngModel" type="number">
+    <mat-error *ngIf="input.invalid && input.touched">Please enter a valid value.</mat-error>
+  </mat-form-field>
+  Flag:
+  <mat-form-field appearance="fill">
+    <mat-label>Flag:</mat-label>
+    <mat-select matNativeControl name="{{ 'flag' + test.name }}" [(ngModel)]="test.flag"  >
+      <mat-option value="Normal">Normal</mat-option>
+      <mat-option value="Abnormal">Abnormal</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Low">Low</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+      <h3>medicine</h3>
+      <div class="row" >
+        <div>
+          <ul>
+            <strong>Press to add medicine</strong>
+            <li *ngFor="let inquantity of quantities; let l = index">
+              Medicine:
+              <mat-form-field appearance="fill">
+                <mat-label>Medicine{{l +1}}:</mat-label>
+              <input matInput type="text" [(ngModel)]="inquantity.med" name="med{{l}}">
+              </mat-form-field> &nbsp;
+              Dosage:
+              <mat-form-field appearance="fill">
+                <mat-label>Dosage:</mat-label>
+              <input matInput type="text" [(ngModel)]="inquantity.qty" name="qty{{l}}">
+              </mat-form-field> &nbsp;
+              Method:
+              <mat-form-field appearance="fill">
+                <mat-label>Method:</mat-label>
+              <input matInput type="text" [(ngModel)]="inquantity.method" name="method{{l}}">
+              </mat-form-field> &nbsp;
+              <button mat-button type="button" (click)="removeQuantity(l)" class="remove-button">Remove</button>
+              <br>
+            </li>
+          </ul>
+          <button mat-button type="button" (click)="addQuantity()" class="mat-button">Add Medicine</button>
+        </div> 
+      </div>   
+
+      <div class="row">
+        Upload scans:
+        <div>
+          <div class="image-container" *ngIf="adata.length > 0">
+            <div *ngFor="let item of adata; let i = index" class="profile-image">
+              <img [src]="item.images" alt="Profile" class="passport-size">
+              <button mat-button class="remove-button" (click)="removeImage(i)">Remove</button>
+            </div>
+          </div>
+          <label for="imageInput" class="mat-button" title="Upload new profile image">Upload pictures</label><br>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" id="imageInput" multiple style="display: none;">
+        </div>
+      </div>
+      
+      <div class="row">
+        Upload prescription :
+        <div>
+          <div class="image-container" *ngIf="predata.length > 0">
+            <div *ngFor="let itema of predata; let i = index" class="profile-image">
+              <img [src]="itema.images" alt="Profile" class="passport-size">
+              <button mat-button class="remove-button" (click)="removepreImage(i)">Remove</button>
+            </div>
+          </div>
+          <label for="preImageInput" class="mat-button" title="Upload new profile image">Upload pictures</label><br>
+          <input type="file" accept="image/*" (change)="onpreFileSelected($event)" id="preImageInput" multiple style="display: none;">
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <mat-label for="pdfInput" class="mat-button1" title="Upload new PDF document">Upload PDF(s) of Lab reports</mat-label><br>
+          <input type="file" accept="application/pdf" (change)="onPDFSelected($event)" id="pdfInput" multiple>
+          <span *ngIf="pdfFiles.length > 0"><br>
+            Selected files:
+            <ul>
+              <li *ngFor="let file of pdfFiles; let i = index">
+                {{ pdfFileNames[i] }}
+                <button mat-button class="remove-button" (click)="removePDF(pdfFiles[i], pdfFileNames[i])">Remove</button>
+              </li>
+            </ul>
+          </span>
+        </div>
+      </div>
+    </mat-dialog-content> 
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="dataForm.invalid">Save</button>
+  </mat-dialog-actions>
+</form>

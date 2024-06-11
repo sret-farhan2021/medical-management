@@ -1,0 +1,43 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Side nav bar</title>
+  <!-- for google icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+
+</head>
+
+<div class="wrapper">
+
+<div class="col-3">
+    <span class="material-icons-outlined" id="ham">
+      menu
+      </span>
+
+  <div class="side-nav">
+      <span class="material-icons-outlined" id="close">
+          close
+          </span>
+      <header>Sri ramachandra</header>
+      <ul>
+        <ul>
+          <a routerLink="/patient" routerLinkActive="active" ariaCurrentWhenActive="page" class="active">
+              <li> <span class="menu">Patient details</span> </li>
+          </a>
+          <a routerLink="/doctor" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <li><span class="menu">Doctor details</span></li>
+          </a>
+          <a routerLink="/patient-history" routerLinkActive="active" ariaCurrentWhenActive="page">
+              <li><span class="menu">Patient history</span></li>
+          </a>
+      </ul>
+</ul>
+</div>
+</div>
+<!-- The routed views render in the <router-outlet>-->
+  <div class="col-9">
+<router-outlet></router-outlet>
+</div>
+</div>

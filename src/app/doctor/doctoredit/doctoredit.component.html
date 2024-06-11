@@ -1,0 +1,201 @@
+<h2 mat-dialog-title>Edit Data</h2>
+<form  #dataForm="ngForm">
+    <mat-dialog-content>
+      <h1>Personal information</h1>
+    <div class="row">
+      Name:
+      <mat-form-field appearance="fill">
+        <mat-label>enter name:</mat-label>
+        <input matInput placeholder="Name" name="name" [(ngModel)]="editedData.name" #name="ngModel" required pattern="[a-zA-Z\s]+">
+        <mat-error *ngIf="name.invalid && name.touched">Name can only contain letters and spaces.</mat-error>
+      </mat-form-field> &nbsp;
+      Phone number:
+      <mat-form-field appearance="fill">
+        <mat-label>Enter the Phone number:</mat-label>
+        <input matInput placeholder="Phone no" name="phone" [(ngModel)]="editedData.phone" #phone="ngModel" required pattern="[0-9]{10}">
+        <mat-error *ngIf="phone.invalid && phone.touched">Please enter a valid 10-digit phone number.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      <div>
+        <div class="image-container" *ngIf="editedData.image">
+          <img [src]="editedData.image" alt="Profile" class="profile-image">
+        </div>
+        <label for="imageInput" class="mat-button" title="Upload new profile image">Upload a picture</label><br>
+        <input type="file" accept="image/*" (change)="onFileSelected($event)" id="imageInput" style="display: none;">
+      </div>
+    </div>  
+    <div class="row">
+      Email:
+      <mat-form-field appearance="fill">
+        <mat-label>enter email:</mat-label>
+        <input matInput placeholder="Email" name="email" [(ngModel)]="editedData.email" required #email="ngModel" email>
+        <mat-error *ngIf="email.invalid && email.touched">Please enter a valid email address.</mat-error>
+      </mat-form-field> &nbsp;
+      Address:
+      <mat-form-field appearance="fill">
+        <mat-label>Enter Address:</mat-label>
+        <input matInput placeholder="Address" name="address" [(ngModel)]="editedData.address" #address="ngModel" required >
+        <mat-error *ngIf="address.invalid && address.touched">Please enter a address.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      D.O.B:
+      <mat-form-field appearance="fill">
+        <mat-label>Date of birth</mat-label>
+        <input matInput [matDatepicker]="dobPicker" name="dob" required [(ngModel)]="editedData.dob">
+        <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+        <mat-datepicker #dobPicker></mat-datepicker>
+        <mat-error *ngIf="!editedData.dob">Please enter a valid date of birth.</mat-error>
+      </mat-form-field> &nbsp;
+      Age:
+      <mat-form-field appearance="fill">
+        <mat-label>enter age:</mat-label>
+        <input matInput placeholder="Age" name="age" [(ngModel)]="editedData.age" #age="ngModel" required type="number">
+        <mat-error *ngIf="age.invalid && age.touched && (age.value > 18 || age.value < 80)">Please enter a valid Age.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Gender:
+      <mat-form-field appearance="fill">
+        <mat-label>Choose Your gender:</mat-label>
+        <select matNativeControl name="gender" [(ngModel)]="editedData.gender"  #gender="ngModel" required>
+          <mat-error *ngIf="gender.invalid && gender.touched">Value must be selected.</mat-error>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="trans">Transgender</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <h1>Additional personal information</h1>
+    <div class="row">
+    Marital Status:
+    <mat-form-field appearance="fill">
+      <mat-label>Choose Your status:</mat-label>
+      <select matNativeControl name="marital" [(ngModel)]="editedData.marital"  #marital="ngModel" required>
+        <mat-error *ngIf="marital.invalid && marital.touched">Value must be selected.</mat-error>
+        <option value="single">Single</option>
+        <option value="married">Married</option>
+        <option value="widowed">Widowed</option>
+        <option value="divorced">Divorced</option>
+      </select>
+    </mat-form-field> &nbsp;
+    Nationality:
+    <mat-form-field appearance="fill">
+      <mat-label>Nationality</mat-label>
+      <input matInput placeholder="Enter patient's nationality" name="nation" [(ngModel)]="editedData.nation" #nation="ngModel" required pattern="[a-zA-Z\s]+">
+      <mat-error *ngIf="nation.invalid && nation.touched">Please enter a proper nationality</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+     <div class="row">
+     State:
+    <mat-form-field appearance="fill">
+      <mat-label>State</mat-label>
+      <input matInput placeholder="Enter patient's state" name="state" [(ngModel)]="editedData.state" #state="ngModel" required pattern="[a-zA-Z\s]+">
+      <mat-error *ngIf="state.invalid && state.touched">Please enter a proper state name.</mat-error>
+    </mat-form-field> &nbsp;
+    City:
+    <mat-form-field appearance="fill">
+      <mat-label>City</mat-label>
+      <input matInput placeholder="Enter patient's city" name="city" [(ngModel)]="editedData.city" #city="ngModel" required pattern="[a-zA-Z\s]+">
+      <mat-error *ngIf="city.invalid && city.touched">Please enter a proper city name.</mat-error>
+    </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Emergency person name:
+      <mat-form-field appearance="fill">
+        <mat-label>Enter name:</mat-label>
+        <input matInput placeholder="Name" name="ename" [(ngModel)]="editedData.ename" #ename="ngModel" required pattern="[a-zA-Z\s]+">
+        <mat-error *ngIf="ename.invalid && ename.touched">Name can only contain letters and spaces.</mat-error>
+      </mat-form-field> &nbsp;
+      Emergency person phone number:
+      <mat-form-field appearance="fill">
+        <mat-label>Enter the Phone number:</mat-label>
+        <input matInput placeholder="Phone no" name="ephone" [(ngModel)]="editedData.ephone" #ephone="ngModel" required pattern="[0-9]{10}">
+        <mat-error *ngIf="ephone.invalid && ephone.touched">Please enter a valid 10-digit phone number.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <div class="row">
+      Emergency person email:
+      <mat-form-field appearance="fill">
+        <mat-label>Enter email:</mat-label>
+        <input matInput placeholder="Email" name="eemail" [(ngModel)]="editedData.eemail" required #eemail="ngModel" email>
+        <mat-error *ngIf="eemail.invalid && eemail.touched">Please enter a valid email address.</mat-error>
+      </mat-form-field> &nbsp;
+      Emergency person address:
+      <mat-form-field appearance="fill">
+        <mat-label>Enter Address:</mat-label>
+        <input matInput placeholder="Address" name="eaddress" [(ngModel)]="editedData.eaddress" #eaddress="ngModel" required >
+        <mat-error *ngIf="eaddress.invalid && eaddress.touched">Please enter a address.</mat-error>
+      </mat-form-field> &nbsp;
+    </div>
+    <!--Hospital data-->
+    <h1>Hospital information</h1>
+    <div class="row">
+      Position:
+      <mat-form-field appearance="fill">
+        <mat-label>Position</mat-label>
+        <input matInput placeholder="Enter the position" name="position" [(ngModel)]="editedData.position" #position="ngModel" required pattern="[a-zA-Z\s]+">
+        <mat-error *ngIf="position.invalid && position.touched">Please enter a proper position name.</mat-error>
+      </mat-form-field> &nbsp;
+ 
+      Specialization
+      <mat-form-field appearance="fill">
+        <mat-label>Enter specialization:</mat-label>
+        <input matInput placeholder="Specialization" name="specialization" [(ngModel)]="editedData.specialization" #specialization="ngModel" required >
+        <mat-error *ngIf="specialization.invalid && specialization.touched">Please enter a Specialization</mat-error>
+      </mat-form-field> &nbsp;
+      </div>
+      <div class="row">
+      Shift Time:
+      <mat-form-field appearance="fill">
+        <mat-label>Choose the doctor's shift timing:</mat-label>
+        <select matNativeControl name="shift" [(ngModel)]="editedData.shift"  #shift="ngModel" required>
+          <mat-error *ngIf="shift.invalid && shift.touched">Value must be selected.</mat-error>
+          <option value="morning">Morning</option>
+          <option value="night">Night</option>
+        </select>
+      </mat-form-field>
+      Degree Completed:
+      <mat-form-field appearance="fill">
+        <mat-label>Degree Completed:</mat-label>
+        <input matInput placeholder="Enter your completed degree name" name="degree" [(ngModel)]="editedData.degree" #degree="ngModel" required>
+        <mat-error *ngIf="degree.invalid && degree.touched">Please enter a degree</mat-error>
+      </mat-form-field> &nbsp;<br>
+      </div>
+      <div class="row">
+        <div>
+          <mat-label for="pdfInput" class="button-label" title="Upload new PDF document">Upload a pdf of your degree certificate:</mat-label><br>
+          <input type="file" accept="application/pdf" (change)="onPDFSelected($event)" id="pdfInput">
+          <span *ngIf="editedData.pdfFileName">{{ editedData.pdfFileName }}</span>
+        </div>
+      </div>
+      <div class="row">
+      Year Completed:
+      <mat-form-field appearance="fill">
+        <mat-label>Year Completed:</mat-label>
+        <input matInput placeholder="Enter the year you completed" name="year" [(ngModel)]="editedData.year" #year="ngModel" required pattern="^(19|20)\d{2}$">
+        <mat-error *ngIf="year.invalid && year.touched">
+          <span *ngIf="year.errors?.['required']">Year is required.</span>
+          <span *ngIf="year.errors?.['pattern']">Invalid year format.</span>
+        </mat-error>
+      </mat-form-field> &nbsp;
+      College name:
+      <mat-form-field appearance="fill">
+        <mat-label>College name:</mat-label>
+        <input matInput placeholder="Enter your college name" name="college" [(ngModel)]="editedData.college" #college="ngModel" required>
+        <mat-error *ngIf="college.invalid && college.touched">Please enter a college name</mat-error>
+      </mat-form-field> &nbsp;<br>
+    </div>
+      Past work experience:
+      <mat-form-field appearance="fill">
+        <mat-label>Previous Work Experience</mat-label>
+        <textarea matInput placeholder="Enter your previous work experience" name="previousexp" [(ngModel)]="editedData.previousexp" #previousexp="ngModel" required></textarea>
+        <mat-error *ngIf="previousexp.invalid && previousexp.touched">Please enter any previous work experience if none type none</mat-error>
+      </mat-form-field> &nbsp;
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onSaveClick()" [disabled]="dataForm.invalid">Save</button>
+</div>
+</mat-dialog-content>
+</form>

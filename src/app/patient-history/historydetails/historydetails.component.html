@@ -1,0 +1,146 @@
+<head>
+  <title>DICOM Viewer Example</title>
+  <script src="https://unpkg.com/cornerstone-core/dist/cornerstone.js"></script>
+  <script src="https://unpkg.com/cornerstone-math/dist/cornerstoneMath.js"></script>
+  <script src="https://unpkg.com/cornerstone-wado-image-loader/dist/cornerstoneWADOImageLoader.js"></script>
+  <script src="https://unpkg.com/cornerstone-tools/dist/cornerstoneTools.js"></script>
+  <script>
+    // Callback function to execute after cornerstoneWADOImageLoader is loaded
+    function onCornerstoneWADOImageLoaderReady() {
+      // Load the DICOM images
+      data.medicals.forEach(function(medical, index) {
+        var decodedData = atob(medical.image);
+        var bytes = new Uint8Array(decodedData.length);
+        for (var i = 0; i < decodedData.length; i++) {
+          bytes[i] = decodedData.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(bytes.buffer);
+        var dataSet = dicomParser.parseDicom(byteArray);
+        var image = cornerstoneWADOImageLoader.createImageObject(dataSet, medical.image);
+        var element = document.getElementById(`dicomViewer${index}`);
+        cornerstone.enable(element);
+        cornerstone.displayImage(element, image);
+      });
+    }
+    // Check if cornerstoneWADOImageLoader is defined
+    if (typeof cornerstoneWADOImageLoader === 'undefined') {
+      // If not defined, wait for the library to load and then execute the callback
+      var checkLibraryInterval = setInterval(function() {
+        if (typeof cornerstoneWADOImageLoader !== 'undefined') {
+          clearInterval(checkLibraryInterval);
+          onCornerstoneWADOImageLoaderReady();
+        }
+      }, 100); // Adjust the interval as needed
+    } else {
+      // If already defined, execute the callback
+      onCornerstoneWADOImageLoaderReady();
+    }
+  </script>
+</head>
+<h2 mat-dialog-title>Details</h2>
+<div mat-dialog-content  class="details-container">
+  <div class="hover-card" [ngClass]="{ 'maximized': isMaximized1 }" (click)="toggleMaximize(1)" *ngIf="data.patienttype === 'inpatient'">
+    <p><strong>Patient ID:</strong> {{data.pid}}</p>
+  <p><strong>Patient type: </strong>{{data.patienttype}}</p>
+  <!--inpatient-->
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Attending doctor ID:</strong> {{data.indid}}</p>
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Attending doctor name:</strong> {{data.inname}}</p>
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Admit date:</strong> {{data.invisit | date:'dd-MM-yyyy'}}</p>
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Discharge date:</strong> {{data.inexit | date:'dd-MM-yyyy'}}</p>
+</div>
+<div class="hover-card" [ngClass]="{ 'maximized': isMaximized2 }" (click)="toggleMaximize(2)" *ngIf="data.patienttype === 'inpatient'">
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Admitted in department:</strong> {{data.indep }}</p>
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Room number:</strong> {{data.inroom }}</p>
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Bed number:</strong> {{data.inbed}}</p>
+  <table *ngIf="data.patienttype === 'inpatient'">
+    <thead>
+      <tr>
+        <th>SYMPTOM</th>
+        <th>SEVERITY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let insymptom of data.insymptoms let i = index">
+        <tr>
+          <td>{{insymptom.symptom}}</td>
+          <td>{{insymptom.severity}}</td>
+        </tr>
+      </ng-container> 
+    </tbody>
+  </table>  
+  <p *ngIf="data.patienttype === 'inpatient'">
+  <ng-container *ngIf="data.medicals.length > 0">
+    Images:
+    <ng-container *ngFor="let medical of data.medicals; let g = index">
+      <div>
+        <strong>Image {{ g + 1 }}:</strong>
+        <u><a href="{{medical.image}}" download="{{medical.file}}">Download</a></u>
+      </div>
+    </ng-container>
+  </ng-container>
+</p>
+<p *ngIf="data.patienttype === 'inpatient'">
+  <ng-container>
+    <div *ngFor="let medical of data.medicals">
+      <canvas class="image-canvas"></canvas>
+    </div>
+  </ng-container>
+</p>
+</div>
+<div class="hover-card" [ngClass]="{ 'maximized': isMaximized3 }" (click)="toggleMaximize(3)" *ngIf="data.patienttype === 'inpatient'">
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Diagnosis:</strong> {{data.indiagnosis }}</p>
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Treatment plan:</strong> {{data.intreatment }}</p>
+  <table *ngIf="data.patienttype === 'inpatient'">
+    <thead>
+      <tr>
+        <th>MEDICINE NAME</th>
+        <th>DOSAGE</th>
+      </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let inquantity of data.inquantities; let i = index">
+      <tr>
+        <td>{{inquantity.qty}}</td>
+        <td>{{inquantity.price}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+    </table>
+  <p *ngIf="data.patienttype === 'inpatient'"><strong>Treatment outcome:</strong> {{data.inoutcome }}</p>
+  </div>
+  <!--outpatient-->
+  <div class="hover-card" [ngClass]="{ 'maximized': isMaximized4 }" (click)="toggleMaximize(4)" *ngIf="data.patienttype === 'outpatient'">
+    <p><strong>Patient ID:</strong> {{data.pid}}</p>
+  <p><strong>Patient type: </strong>{{data.patienttype}}</p>  <p *ngIf="data.patienttype === 'outpatient'"><strong>Attending doctor id:</strong> {{data.outdid }}</p>
+  <p *ngIf="data.patienttype === 'outpatient'"><strong>Attending doctor name:</strong> {{data.outname }}</p>
+  <p *ngIf="data.patienttype === 'outpatient'"><strong>Visit date:</strong> {{data.outvisit | date:'dd-MM-yyyy'}}</p>
+  <p *ngIf="data.patienttype === 'outpatient'"><strong>Consulting in department:</strong> {{data.outdep }}</p>
+  </div>
+  <div class="hover-card" [ngClass]="{ 'maximized': isMaximized5 }" (click)="toggleMaximize(5)" *ngIf="data.patienttype === 'outpatient'">
+  <p *ngIf="data.patienttype === 'outpatient'">
+    Symptoms: <br>
+    <ng-container *ngFor="let outsymptom of data.outsymptoms let i = index">
+      <strong>symptom {{i+1}} : </strong>{{outsymptom.symptom}} <strong>Severity{{i}} : </strong>{{outsymptom.severity}}<br>
+    </ng-container>
+  </p>
+  <p *ngIf="data.patienttype === 'outpatient'">
+    Images:
+    <ng-container *ngFor="let outmedical of data.outmedicals let c = index">
+  <strong>Image {{c+1}}:</strong><u><a href="{{outmedical.image}}" download="{{outmedical.file}}">Download</a></u>
+</ng-container> 
+
+</p>  
+</div>
+<div class="hover-card" [ngClass]="{ 'maximized': isMaximized6 }" (click)="toggleMaximize(6)" *ngIf="data.patienttype === 'outpatient'">
+<p *ngIf="data.patienttype === 'outpatient'"><strong>Diagnosed with:</strong> {{data.outdiagnosis }}</p>
+  <p *ngIf="data.patienttype === 'outpatient'">
+  Medicines used: <br>
+  <ng-container *ngFor="let quantity of data.quantities; let i = index">
+    <strong>Medicine {{i}} qty: </strong>{{quantity.qty}}, <strong>dosage: </strong>{{quantity.price}}<br>
+  </ng-container>
+  </p>
+</div>
+</div>
+<div mat-dialog-actions class="close">
+  <button mat-button (click)="onCloseClick()">Close</button>
+</div>

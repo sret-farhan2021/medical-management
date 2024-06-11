@@ -1,0 +1,10 @@
+.disabled {
+    display: none;
+  }
+textarea{
+  resize: none;
+}
+.row{
+  padding: 10px;
+  margin: 10px;
+}

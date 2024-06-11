@@ -1,0 +1,265 @@
+
+<h2 mat-dialog-title>Edit Data</h2>
+<div mat-dialog-content>
+  <div class="row">
+    <mat-form-field appearance="fill"><br>
+      <mat-label>Enter patient id:</mat-label>
+      <input matInput placeholder="ID" name="pid" [(ngModel)]="editedData.pid" #pid="ngModel" required>
+      <mat-error *ngIf="pid.invalid && pid.touched">Name can only contain letters and spaces.</mat-error>
+    </mat-form-field><br>
+
+      </div>
+
+      <div class="row">
+        Type of patient:
+    <mat-radio-group [(ngModel)]="editedData.patienttype" name="patientType">
+      <mat-radio-button value="inpatient">Inpatient</mat-radio-button>
+      <mat-radio-button value="outpatient">Outpatient</mat-radio-button>
+    </mat-radio-group>
+  </div>
+    
+      <!-- Inpatient form fields -->
+
+      <div [ngClass]="{'disabled': editedData.patienttype !== 'inpatient'}">
+
+        <div class="row">
+          Attending doctor ID:
+          <mat-form-field appearance="fill">
+          <mat-label>Enter doctor ID:</mat-label>
+          <input matInput placeholder="Name" name="indid" [(ngModel)]="editedData.indid" #indid="ngModel" required pattern="[a-zA-Z\s]+" [disabled]="editedData.patienttype !== 'inpatient'">
+          <mat-error *ngIf="indid.invalid && indid.touched">Name can only contain letters and spaces.</mat-error>
+        </mat-form-field> &nbsp;
+          Attending doctor name:
+          <mat-form-field appearance="fill">
+            <mat-label>enter name:</mat-label>
+            <input matInput placeholder="Name" name="inname" [(ngModel)]="editedData.inname" #inname="ngModel" required pattern="[a-zA-Z\s]+" [disabled]="editedData.patienttype !== 'inpatient'">
+            <mat-error *ngIf="inname.invalid && inname.touched">Name can only contain letters and spaces.</mat-error>
+          </mat-form-field> &nbsp;
+        </div>
+          <div class="row">
+          Admission date:
+          <mat-form-field appearance="fill">
+            <mat-label>Admitted on</mat-label>
+            <input matInput [matDatepicker]="invisit" name="invisit" required [(ngModel)]="editedData.invisit" [disabled]="editedData.patienttype !== 'inpatient'">
+            <mat-datepicker-toggle matSuffix [for]="invisit"></mat-datepicker-toggle>
+            <mat-datepicker #invisit></mat-datepicker>
+            <mat-error *ngIf="!editedData.invisit">Please enter a valid date of birth.</mat-error>
+          </mat-form-field> &nbsp;
+          Discharge date:
+          <mat-form-field appearance="fill">
+            <mat-label>Discharge date</mat-label>
+            <input matInput [matDatepicker]="inexit" name="inexit" required [(ngModel)]="editedData.inexit" [disabled]="editedData.patienttype !== 'inpatient'">
+            <mat-datepicker-toggle matSuffix [for]="inexit"></mat-datepicker-toggle>
+            <mat-datepicker #inexit></mat-datepicker>
+            <mat-error *ngIf="!editedData.inexit">Please enter a valid date of birth.</mat-error>
+          </mat-form-field> &nbsp;
+          </div>
+          <div class="row">
+          Ward/Department admitted in:
+          <mat-form-field appearance="fill">
+            <mat-label>Enter department name:</mat-label>
+            <input matInput placeholder="Department" name="indep" [(ngModel)]="editedData.indep" #indep="ngModel" required pattern="[a-zA-Z\s]+" [disabled]="editedData.patienttype !== 'inpatient'">
+            <mat-error *ngIf="indep.invalid && indep.touched">Name can only contain letters and spaces.</mat-error>
+          </mat-form-field> &nbsp;
+          Room number:
+          <mat-form-field appearance="fill">
+            <mat-label>Enter room number:</mat-label>
+            <input matInput placeholder="Room number" name="inroom" [(ngModel)]="editedData.inroom" #inroom="ngModel" required [disabled]="editedData.patienttype !== 'inpatient'">
+            <mat-error *ngIf="inroom.invalid && inroom.touched">Enter the room number.</mat-error>
+          </mat-form-field> &nbsp;
+          </div>
+          <div class="row">
+          Bed number:
+          <mat-form-field appearance="fill">
+            <mat-label>Enter bed number:</mat-label>
+            <input matInput placeholder="Department" name="inbed" [(ngModel)]="editedData.inbed" #inbed="ngModel" required [disabled]="editedData.patienttype !== 'inpatient'">
+            <mat-error *ngIf="inbed.invalid && inbed.touched">Enter the room number.</mat-error>
+          </mat-form-field> &nbsp;
+          </div>
+          <div class="row" >
+            <div>
+              <ul>
+               <strong> Press to add symptoms</strong>
+                <li *ngFor="let insymptom of insymptoms; let k = index">
+                  Symptoms:
+                  <mat-form-field appearance="fill">
+                    <mat-label>Symptom{{k+1}}:</mat-label>
+                  <input matInput type="text" [(ngModel)]="insymptom.symptom" name="symptom{{k}}" [disabled]="editedData.patienttype !== 'inpatient'">
+                  </mat-form-field> &nbsp;
+                  Severity:
+                  <mat-form-field appearance="fill">
+                    <mat-label>Severity:</mat-label>
+                  <input matInput type="text" [(ngModel)]="insymptom.severity" name="severity{{k}}" [disabled]="editedData.patienttype !== 'inpatient'">
+                  </mat-form-field> &nbsp;
+                  <button mat-button type="button" (click)="removeinsymptom(k)" [disabled]="editedData.patienttype !== 'inpatient'" >Remove</button>
+              <br>
+                </li>
+              </ul>
+              <button mat-button type="button" (click)="addinsymptom()" [disabled]="editedData.patienttype !== 'inpatient'">Add Symptom</button>
+            </div> 
+          </div>  
+          <div class="row">
+            <div>
+              <ul>
+                <strong>Press to add Medical Image</strong>
+                <li *ngFor="let medical of medicals; let e = index">
+                  <div *ngIf="medical.image">
+                    <p>File Name: {{ medical.file }}</p>
+                    <button mat-button type="button" (click)="removemedical(e)"  [disabled]="editedData.patienttype !== 'inpatient'">Remove</button>
+                </div>
+                </li>
+              </ul>
+              <button mat-button type="button" (click)="addmedical()"  [disabled]="editedData.patienttype !== 'inpatient'">Add Image</button>
+            </div>
+          </div>
+          <div class="row">
+           Diagnosis:
+          <mat-form-field appearance="fill">
+            <mat-label>Enter the diagnosis:</mat-label>
+            <textarea rows="5" cols="10" matInput placeholder="Diagnosis" name="indiagnosis" [(ngModel)]="editedData.indiagnosis" #indiagnosis="ngModel" required [disabled]="editedData.patienttype !== 'inpatient'"></textarea>
+            <mat-error *ngIf="indiagnosis.invalid && indiagnosis.touched">A diagnosis is required. </mat-error>
+          </mat-form-field> &nbsp;
+            Treatment plan:
+            <mat-form-field appearance="fill">
+              <mat-label>Enter the Treatment plan:</mat-label>
+              <textarea rows="5" cols="10" matInput placeholder="Treatment plan" name="intreatment" [(ngModel)]="editedData.intreatment" #intreatment="ngModel" required [disabled]="editedData.patienttype !== 'inpatient'" class="describe"></textarea>
+              <mat-error *ngIf="intreatment.invalid && intreatment.touched">A treatement is required. </mat-error>
+            </mat-form-field> &nbsp;
+          </div>
+          <div class="row" >
+            <div>
+              <ul>
+                <strong>Press to add medicine</strong>
+                <li *ngFor="let inquantity of inquantities; let l = index">
+                  Medicine:
+                  <mat-form-field appearance="fill">
+                    <mat-label>Medicine{{l +1}}:</mat-label>
+                  <input matInput type="text" [(ngModel)]="inquantity.qty" name="qty{{l}}" [disabled]="editedData.patienttype !== 'inpatient'">
+                  </mat-form-field> &nbsp;
+                  Dosage:
+                  <mat-form-field appearance="fill">
+                    <mat-label>Dosage:</mat-label>
+                  <input matInput type="text" [(ngModel)]="inquantity.price" name="price{{l}}" [disabled]="editedData.patienttype !== 'inpatient'">
+                  </mat-form-field> &nbsp;
+                  <button mat-button type="button" (click)="removeinQuantity(l)"  [disabled]="editedData.patienttype !== 'inpatient'">Remove</button>
+                  <br>
+                </li>
+              </ul>
+              <button mat-button type="button" (click)="addinQuantity()"  [disabled]="editedData.patienttype !== 'inpatient'">Add Quantity</button>
+            </div> 
+          </div>   
+          <div class="row"> 
+            Treatment outcome:
+            <mat-form-field appearance="fill">
+              <mat-label>Enter the Treatment outcome:</mat-label>
+              <textarea rows="5" cols="10" matInput placeholder="Treatment outcome" name="inoutcome" [(ngModel)]="editedData.inoutcome" #inoutcome="ngModel" required [disabled]="editedData.patienttype !== 'inpatient'" class="describe"></textarea>
+              <mat-error *ngIf="inoutcome.invalid && inoutcome.touched">A treatement is required. </mat-error>
+            </mat-form-field> &nbsp;
+            <!--need to add medicine -->
+          </div>
+        </div>
+      
+      <!-- Outpatient form fields -->
+      <div [ngClass]="{'disabled': editedData.patienttype !== 'outpatient'}">
+        <div class="row">
+        Consulting doctor ID:
+        <mat-form-field appearance="fill">
+          <mat-label>Enter doctor ID:</mat-label>
+          <input matInput placeholder="Name" name="outdid" [(ngModel)]="editedData.outdid" #outdid="ngModel" required pattern="[a-zA-Z\s]+" [disabled]="editedData.patienttype !== 'outpatient'">
+          <mat-error *ngIf="outdid.invalid && outdid.touched" >Enter a ID.</mat-error>
+        </mat-form-field> &nbsp;
+        Consulting doctor name:
+        <mat-form-field appearance="fill">
+          <mat-label>enter name:</mat-label>
+          <input matInput placeholder="Name" name="outname" [(ngModel)]="editedData.outname" #outname="ngModel" required pattern="[a-zA-Z\s]+" [disabled]="editedData.patienttype !== 'outpatient'">
+          <mat-error *ngIf="outname.invalid && outname.touched">Name can only contain letters and spaces.</mat-error>
+        </mat-form-field> &nbsp;
+      </div>
+        <div class="row">
+        Visit date:
+          <mat-form-field appearance="fill">
+            <mat-label>Admitted on</mat-label>
+            <input matInput [matDatepicker]="outvisit" name="outvisit" required [(ngModel)]="editedData.outvisit" [disabled]="editedData.patienttype !== 'outpatient'">
+            <mat-datepicker-toggle matSuffix [for]="outvisit"></mat-datepicker-toggle>
+            <mat-datepicker #outvisit></mat-datepicker>
+            <mat-error *ngIf="!editedData.outvisit">Please enter a valid date of birth.</mat-error>
+          </mat-form-field> &nbsp;
+          Ward/Department consulting in:
+          <mat-form-field appearance="fill">
+            <mat-label>Enter department name:</mat-label>
+            <input matInput placeholder="Department" name="outdep" [(ngModel)]="editedData.outdep" #outdep="ngModel" required pattern="[a-zA-Z\s]+" [disabled]="editedData.patienttype !== 'outpatient'">
+            <mat-error *ngIf="outdep.invalid && outdep.touched">Name can only contain letters and spaces.</mat-error>
+          </mat-form-field> &nbsp;
+          </div>
+          <div class="row" >
+            <div>
+              <ul>
+                <li *ngFor="let outsymptom of outsymptoms; let j = index">
+                  Symptoms:
+                  <mat-form-field appearance="fill">
+                    <mat-label>Medicine{{j}}:</mat-label>
+                  <input matInput type="text" [(ngModel)]="outsymptom.symptom" name="symptom{{j}}" [disabled]="editedData.patienttype !== 'outpatient'">
+                  </mat-form-field> &nbsp;
+                  Severity:
+                  <mat-form-field appearance="fill">
+                    <mat-label>Severity:</mat-label>
+                  <input matInput type="text" [(ngModel)]="outsymptom.severity" name="severity{{j}}" [disabled]="editedData.patienttype !== 'outpatient'">
+                  </mat-form-field> &nbsp;
+                  <button mat-button type="button" (click)="removeoutsymptom(j)" [disabled]="editedData.patienttype !== 'outpatient'">Remove</button>
+              <br>
+                </li>
+              </ul>
+              <button mat-button type="button" (click)="addoutsymptom()" [disabled]="editedData.patienttype !== 'outpatient'">Add Symptom</button>
+            </div> 
+          </div>    
+          <div class="row">
+            <div>
+              <ul>
+                <strong>Press to add Medical Image</strong>
+                <li *ngFor="let outmedical of outmedicals; let e = index">
+                  <div *ngIf="outmedical.image">
+                    <p>File Name: {{ outmedical.file }}</p>
+                  <button mat-button type="button" (click)="removeoutmedical(e)"  [disabled]="editedData.patienttype !== 'outpatient'">Remove</button>
+                </div>
+                </li>
+              </ul>
+              <button mat-button type="button" (click)="addoutmedical()"  [disabled]="editedData.patienttype !== 'outpatient'">Add Image</button>
+            </div>
+          </div> 
+          <div class="row">
+            Diagnosis:
+          <mat-form-field appearance="fill">
+            <mat-label>Enter the diagnosis:</mat-label>
+            <textarea rows="5" cols="10" matInput placeholder="Diagnosis" name="outdiagnosis" [(ngModel)]="editedData.outdiagnosis" #outdiagnosis="ngModel" required [disabled]="editedData.patienttype !== 'outpatient'"></textarea>
+            <mat-error *ngIf="outdiagnosis.invalid && outdiagnosis.touched">A diagnosis is required. </mat-error>
+          </mat-form-field> &nbsp;
+          </div>
+        <div class="row">
+          <div>
+            <ul>
+              <li *ngFor="let quantity of quantities; let i = index">
+                Medicine {{i}}:
+                <mat-form-field appearance="fill">
+                  <mat-label>Medicine{{i}}:</mat-label>
+                  <input matInput type="text" [(ngModel)]="quantity.qty" name="qty{{i}}"  [disabled]="editedData.patienttype !== 'outpatient'">
+                </mat-form-field> &nbsp;
+                Dosage {{i}}:
+                <mat-form-field appearance="fill">
+                  <mat-label>Dosage{{i}}:</mat-label>
+                  <input matInput type="text" [(ngModel)]="quantity.price" name="price{{i}}"  [disabled]="editedData.patienttype !== 'outpatient'">
+                </mat-form-field> &nbsp;
+                <button mat-button type="button" (click)="removeQuantity(i)"  [disabled]="editedData.patienttype !== 'outpatient'">Remove</button>
+                <br>
+              </li>
+            </ul>
+            
+            <button mat-button type="button" (click)="addQuantity()"  [disabled]="editedData.patienttype !== 'outpatient'">Add Quantity</button>
+          </div> 
+        </div>
+      </div> 
+      
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button color="primary" (click)="onSaveClick()">Save</button>
+</div>

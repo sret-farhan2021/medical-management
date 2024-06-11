@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Details</h2>
+<div mat-dialog-content>
+  <p><strong>Name:</strong> <u>{{data.name}}</u></p>
+  <p><strong>Photo:</strong> <u><img [src]="data.image" class="passport-size"></u></p>
+  <p><strong>Phone number:</strong> <u>{{data.phone}}</u></p>
+  <p><strong>Email:</strong><u> {{data.email}}</u></p>
+  <p><strong>Address:</strong> <u>{{data.address}}</u></p>
+  <p><strong>Gender:</strong><u> {{data.gender}}</u></p>
+  <p><strong>Date of Birth:</strong> <u>{{data.dob | date:'dd-MM-yyyy'}}</u></p>
+  <p><strong>Age:</strong> <u>{{data.age}}</u></p>
+  <p><strong>Marital status</strong><u>{{data.marital}}</u></p>
+  <p><strong>Nationality:</strong> <u>{{data.nation}}</u></p>
+  <p><strong>State:</strong> <u>{{data.state}}</u></p>
+  <p><strong>City:</strong> <u>{{data.city}}</u></p>
+  <p><strong>Emergency contact person name:</strong><u>{{data.ename}}</u></p>
+  <p><strong>Emergency person contact:</strong><u>{{data.ephone}}</u></p>
+  <p><strong>Emergency person email:</strong><u>{{data.eemail}}</u></p>
+  <p><strong>Emergency person address:</strong><u>{{data.eaddress}}</u></p>
+  <p><strong>Degree in </strong><u>{{data.degree}}</u><strong> studied in </strong><u>{{data.degree}}</u><strong> graduated in </strong><u>{{data.year}}</u></p>
+  <p><strong>PDF copy of degree:</strong> <u><a href="{{data.deegreepdf}}" download="deegreepdf.pdf">Download</a></u></p>
+  <p><strong>Position:</strong> <u>{{data.position}}</u></p>
+  <p><strong>Shift during:</strong><u>{{data.shift}}</u></p> 
+  <p><strong>Past work experience:</strong><u>{{data.previousexp}}</u></p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCloseClick()">Close</button>
+</div>

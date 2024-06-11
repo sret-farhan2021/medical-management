@@ -1,0 +1,20 @@
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close-button {
+    margin-left: auto;
+  }
+  
+  .close-icon {
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .fit-screen {
+    max-width: 100%;
+    max-height: 96vh;
+  }
+  
